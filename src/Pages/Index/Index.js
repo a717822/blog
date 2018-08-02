@@ -6,11 +6,6 @@ import {  Layout, Menu , Icon} from 'antd';
 const { Header, Content } = Layout;
 
 class Index extends Component {
-    constructor(props){
-        super(props);
-        console.log(props);
-    }
-
     render(){
         return(
             <Layout>
