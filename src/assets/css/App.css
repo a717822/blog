@@ -7,11 +7,17 @@
     .blog-container{
         min-height: 800px;
     }
+    .calendar{
+        margin-left: 30px;
+    }
 }
 
 @media screen and (max-height: 768px) {
     .blog-container{
         min-height: 500px;
+    }
+    .calendar{
+        margin-left: 0;
     }
 }
 
@@ -43,4 +49,8 @@
 }
 .blog .more i{
     margin-left: 20px;
+}
+.calendar{
+    margin-top: 30px;
+    background-color: #fff;
 }

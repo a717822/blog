@@ -3,6 +3,7 @@
  * @param config
  */
 let yangAjax = (config) =>{
+    let hostUrl = 'http://localhost:58888/'
     config = config || {};
     config.method = (config.method || "GET").toUpperCase();
     config.dataType = config.dataType || "json";
@@ -27,7 +28,7 @@ let yangAjax = (config) =>{
 
 
     if (config.method === 'POST'){
-        xhr.open('POST', config.url, config.async );
+        xhr.open('POST',hostUrl +  config.url, config.async );
 
         if(!isFormData(config.data)){
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
@@ -41,7 +42,7 @@ let yangAjax = (config) =>{
 
         xhr.send(postData);
     } else {
-        xhr.open('GET', config.url + '?' + postData, config.async);
+        xhr.open('GET', hostUrl + config.url + '?' + postData, config.async);
         if(config.headers){
             for (let key in config.headers){
                 xhr.setRequestHeader(key,config.headers[key]);
