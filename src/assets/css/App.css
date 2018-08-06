@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: "Microsoft YaHei";
 }
 
 @media screen and (min-width: 768px) {
@@ -10,14 +11,20 @@
     .calendar{
         margin-left: 30px;
     }
+    .ant-layout-content{
+        padding: 0 70px;
+    }
 }
 
-@media screen and (max-height: 768px) {
+@media screen and (max-width: 768px) {
     .blog-container{
         min-height: 500px;
     }
     .calendar{
         margin-left: 0;
+    }
+    .ant-layout-content{
+        padding: 0 20px;
     }
 }
 
@@ -40,7 +47,7 @@
     font-weight: bold;
     margin-bottom: 20px;
 }
-.blog .blog-content ul li{
+.blog .blog-content ul li , .more_list  ul li{
     list-style: none;
     margin-bottom: 10px;
 }
@@ -53,4 +60,84 @@
 .calendar{
     margin-top: 30px;
     background-color: #fff;
+}
+.no_data{
+    min-height: 200px;
+    text-align: center;
+    line-height: 200px;
+}
+.more{
+    text-align: right;
+    cursor: pointer;
+}
+
+.blog_detail{
+    margin-top: 50px;
+    background-color: #fff;
+    padding: 50px;
+}
+.blog_detail .blog_title h1{
+    font-size: 30px;
+    color: #333;
+    font-weight: bold;
+}
+.blog_detail .blog_title p{
+    font-size: 12px;
+    color: #999;
+}
+
+.blog_detail .blog_header{
+    margin-bottom: 20px;
+}
+
+.blog_detail .blog_header_label{
+    font-size: 14px;
+    color: #333;
+}
+.blog_detail .blog_header_label i{
+    margin-right: 20px;
+}
+
+.blog_detail_content{
+    font-size: 16px;
+    color: #333;
+    min-height: 600px;
+    word-break: break-all;
+}
+.blog_detail_content pre{
+    margin: 0 0 10px;
+    padding: 8px 16px 4px 10px;
+    background-color: #f6f8fa;
+    border: none;
+}
+.blog_detail_content pre code{
+    display: block;
+    font-size: 14px;
+    line-height: 22px;
+    overflow-x: auto;
+    padding: 0;
+    color: #000;
+    white-space: pre;
+    word-wrap: normal;
+    background-color: #f6f8fa;
+    border-radius: 4px;
+}
+.blog_detail_content table tr ,
+.blog_detail_content table tr th ,
+.blog_detail_content table tr td  {
+    border: 1px solid #333;
+}
+
+.more_content{
+    margin-top: 30px;
+    background-color: #fff;
+}
+.more_content .more_title{
+    padding: 10px;
+    font-size: 18px;
+    color: #333;
+}
+.more_list{
+    min-height: 800px;
+    padding: 0 20px;
 }

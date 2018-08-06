@@ -7,12 +7,30 @@ import Error_404 from '../Pages/Error/404'
 import Error_500 from '../Pages/Error/500'
 
 import Index from '../Pages/Index/Index'
+import Detail from "../Pages/Detail/Detail";
+import More from "../Pages/More/More";
+import List from "../Pages/List/List";
 
 const router = [
 
     {
       path:'/',
       component:Index
+    },
+
+    {
+       path:'/Detail/:id',
+       component:Detail
+    },
+
+    {
+        path:'/More/:type',
+        component:More
+    },
+
+    {
+        path:'/List/:id',
+        component:List
     },
 
     // 错误页面
