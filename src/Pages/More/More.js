@@ -40,7 +40,9 @@ class More extends Component {
                     this.setState({
                         list:data.list,
                         name:data.name
-                    })
+                    });
+
+                    document.title = '杨子龙的主页-更多-' + data.name;
                 }
             }
         })

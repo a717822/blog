@@ -46,7 +46,9 @@ class blogList extends Component {
                     this.setState({
                         list:data.list,
                         name:data.name
-                    })
+                    });
+
+                    document.title = data.name + '—杨子龙的主页—技术分享';
                 }
             }
         })
