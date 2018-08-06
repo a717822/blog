@@ -1,7 +1,6 @@
 import React, { Component , ajax} from 'react';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
-// import TopHeader from "../../components/topHeader/topHeader";
 
 import {  Layout , Icon , Calendar , Menu} from 'antd';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
@@ -68,7 +67,9 @@ class Index extends Component {
                         fronts:data.list.front,
                         news:data.list.new,
                         servers:data.list.server
-                    })
+                    });
+
+                    document.title = '杨子龙的主页';
                 }
             }
         })

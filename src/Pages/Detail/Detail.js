@@ -30,7 +30,9 @@ class Detail extends Component {
                 if(data.id === 10000){
                     this.setState({
                         blog:data.list[0],
-                    })
+                    });
+
+                    document.title = data.list[0].title
                 }
             }
         })
