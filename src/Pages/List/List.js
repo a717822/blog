@@ -1,7 +1,6 @@
 import React, { Component , ajax} from 'react';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
-
 import {  Layout  , Divider  , List, Icon , Menu} from 'antd';
 
 const { Content , Header} = Layout;
@@ -19,7 +18,7 @@ class blogList extends Component {
         this.state = {
             list:[],
             name:'',
-            id:this.props.match.params.id
+            select:localStorage.getItem('select')?localStorage.getItem('select'):'share:1',
         }
     }
 
@@ -27,14 +26,20 @@ class blogList extends Component {
         this.getBlogList();
     }
 
-    getBlogList = () =>{
+    componentWillReceiveProps(nextProps){
+        if(nextProps){
+            window.location.reload();
+        }
+    }
+
+    getBlogList = ()=>{
         ajax({
             url:'getBlogList',
             method:'post',
             dataType:'json',
             async:true,
             data:{
-                id:this.state.id,
+                id:this.props.match.params.id
             },
             success:(data) =>{
                 if(data.id === 10000){
@@ -51,7 +56,7 @@ class blogList extends Component {
         return(
             <Layout>
                 <Header>
-                    <Menu selectedKeys={['share:1']}
+                    <Menu selectedKeys={[this.state.select]}
                           mode="horizontal"
                           theme="dark"
                           style={{ lineHeight: '64px' }}>
@@ -65,6 +70,7 @@ class blogList extends Component {
                                 <Menu.Item key="share:1">
                                     <a  onClick={()=>{
                                         window.location.href = '#/List/3';
+                                        localStorage.setItem('select' , 'share:1');
                                     }}>
                                         Node.js
                                     </a>
@@ -72,6 +78,7 @@ class blogList extends Component {
                                 <Menu.Item key="share:2">
                                     <a onClick={()=>{
                                         window.location.href = '#/List/1';
+                                        localStorage.setItem('select' , 'share:2');
                                     }}>PHP</a>
                                 </Menu.Item>
                             </Menu.ItemGroup>
@@ -79,11 +86,13 @@ class blogList extends Component {
                                 <Menu.Item key="share:3">
                                     <a onClick={()=>{
                                         window.location.href = '#/List/2';
+                                        localStorage.setItem('select' , 'share:3');
                                     }}>前端</a>
                                 </Menu.Item>
                                 <Menu.Item key="share:4">
                                     <a onClick={()=>{
                                         window.location.href = '#/List/4';
+                                        localStorage.setItem('select' , 'share:4');
                                     }}>最新Web API</a>
                                 </Menu.Item>
                             </Menu.ItemGroup>
@@ -103,7 +112,7 @@ class blogList extends Component {
                                   renderItem={item => (
                                       <List.Item
                                           key={item.title}
-                                          actions={[<IconText type="like-o" text="0" />, <IconText type="eye" text="0" />]}
+                                          actions={[<IconText type="like-o" text="0" />, <IconText type="eye" text={item.views} />]}
                                           extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
                                       >
                                           <List.Item.Meta
