@@ -19,7 +19,7 @@ class Detail extends Component {
 
     getBlogMsg = () =>{
         ajax({
-            url:'detail',
+            url:'getBlogDetail',
             method:'post',
             dataType:'json',
             async:true,

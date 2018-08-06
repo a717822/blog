@@ -101,7 +101,7 @@ class More extends Component {
                                   renderItem={item => (
                                       <List.Item
                                           key={item.title}
-                                          actions={[<IconText type="like-o" text="0" />, <IconText type="eye" text="0" />]}
+                                          actions={[<IconText type="like-o" text="0" />, <IconText type="eye" text={item.views} />]}
                                           extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
                                       >
                                           <List.Item.Meta
