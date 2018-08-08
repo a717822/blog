@@ -26,6 +26,9 @@
     .ant-layout-content{
         padding: 0 20px;
     }
+    .ant-list-item-extra{
+        margin-bottom: 20px;
+    }
 }
 
 .blog-container{
@@ -140,4 +143,23 @@
 .more_list{
     min-height: 800px;
     padding: 0 20px;
+}
+.ant-list-vertical .ant-list-item-meta-title{
+    font-size: 20px;
+    color: #333;
+}
+.ant-list-vertical .ant-list-item-content{
+    height: 65px;
+    font-size: 12px;
+    color: #999;
+}
+
+.blog_like{
+    text-align: center;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+}
+.blog_like i{
+    font-size: 50px;
 }

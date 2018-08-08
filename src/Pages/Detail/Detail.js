@@ -1,7 +1,7 @@
 import React, { Component , ajax} from 'react';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
-import {  Layout  , Icon , Divider , Menu} from 'antd';
+import {  Layout  , Icon , Divider , Menu , message} from 'antd';
 
 const { Content  , Header} = Layout;
 
@@ -17,6 +17,7 @@ class Detail extends Component {
         this.getBlogMsg();
     }
 
+    // 获取博客信息
     getBlogMsg = () =>{
         ajax({
             url:'getBlogDetail',
@@ -33,6 +34,33 @@ class Detail extends Component {
                     });
 
                     document.title = data.list[0].title
+                }
+            }
+        })
+    };
+
+    // 点赞
+    blogLike = () =>{
+        const blog = this.state.blog;
+
+        ajax({
+            url:'blogLike',
+            method:'post',
+            dataType:'json',
+            async:true,
+            data:{
+                id:this.props.match.params.id
+            },
+            success:(data) =>{
+                if(data.id === 10000){
+                    message.success('点赞成功');
+                    blog.likes = parseInt(blog.likes) + 1;
+
+                    this.setState({
+                        blog:blog
+                    })
+                }else{
+                    message.error('点赞失败');
                 }
             }
         })
@@ -114,6 +142,19 @@ class Detail extends Component {
 
                         <div className="blog_detail_content"
                              dangerouslySetInnerHTML = {{ __html:this.state.blog.content}}></div>
+
+                        <div className="blog_like" onClick={()=>{
+                            this.blogLike()
+                        }}>
+                            <span>
+                                <div>
+                                    <Icon type="like-o" />
+                                </div>
+
+                                <div>{this.state.blog.likes}</div>
+                            </span>
+
+                        </div>
                     </div>
 
                 </Content>

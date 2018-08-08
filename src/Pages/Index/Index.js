@@ -2,7 +2,7 @@ import React, { Component , ajax} from 'react';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
 
-import {  Layout , Icon , Calendar , Menu} from 'antd';
+import {  Layout , Icon , Calendar , Menu , Card} from 'antd';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 import 'moment/locale/zh-cn';
 
@@ -23,7 +23,9 @@ class Index extends Component {
 
             news:[],
             news_style:'block',
-            no_news_data:'none'
+            no_news_data:'none',
+
+            CardLoading:true
         }
     }
 
@@ -66,7 +68,8 @@ class Index extends Component {
                     this.setState({
                         fronts:data.list.front,
                         news:data.list.new,
-                        servers:data.list.server
+                        servers:data.list.server,
+                        CardLoading:false
                     });
 
                     document.title = '杨子龙的主页';
@@ -128,7 +131,7 @@ class Index extends Component {
                     <div className="blog-container ant-col-md-16">
 
                         {/*最新发布*/}
-                        <div className="blog">
+                        <Card className="blog" loading={this.state.CardLoading}>
                             <div className="blog-cate">最新发布</div>
                             <div className="blog-content">
                                 <div style={{display:this.state.news_style}}>
@@ -154,11 +157,10 @@ class Index extends Component {
                                     暂无最新发布的博客
                                 </div>
                             </div>
-
-                        </div>
+                        </Card>
 
                         {/*服务器端*/}
-                        <div className="blog">
+                        <Card className="blog" loading={this.state.CardLoading}>
                             <div className="blog-cate">服务器端</div>
                             <div className="blog-content">
                                 <div style={{display:this.state.server_style}}>
@@ -186,10 +188,10 @@ class Index extends Component {
                                     暂无最新发布的博客
                                 </div>
                             </div>
-                        </div>
+                        </Card>
 
                         {/*前端*/}
-                        <div className="blog">
+                        <Card className="blog" loading={this.state.CardLoading}>
                             <div className="blog-cate">前端</div>
                             <div className="blog-content">
                                 <div style={{display:this.state.front_style}}>
@@ -217,7 +219,7 @@ class Index extends Component {
                                     暂无最新发布的博客
                                 </div>
                             </div>
-                        </div>
+                        </Card>
                     </div>
 
                     <div className="calendar ant-col-md-7">

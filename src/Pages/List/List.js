@@ -114,13 +114,13 @@ class blogList extends Component {
                                   renderItem={item => (
                                       <List.Item
                                           key={item.title}
-                                          actions={[<IconText type="like-o" text="0" />, <IconText type="eye" text={item.views} />]}
-                                          extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
+                                          actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}
+                                          extra={<img width={270} height={168} alt="博客图片" src={item.imgsrc} /> }
                                       >
                                           <List.Item.Meta
                                               title={<a href={item.href}>{item.title}</a>}
                                           />
-                                          {item.content}
+                                          {item.description}
                                       </List.Item>
                                   )}>
 
