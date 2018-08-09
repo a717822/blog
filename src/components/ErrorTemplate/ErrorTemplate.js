@@ -4,7 +4,7 @@ import error_403 from '../../assets/img/403.svg'
 import error_404 from '../../assets/img/404.svg'
 import error_500 from '../../assets/img/500.svg'
 
-import { Layout , Button} from 'antd';
+import { Layout } from 'antd';
 const { Content } = Layout;
 
 
@@ -56,11 +56,11 @@ class ErrorTemplate extends Component {
                     <div className="error_content">
                         <h1>{this.state.data.title}</h1>
                         <div className="error_text">{this.state.data.dec}</div>
-                        <div className="error_btn">
-                            <a onClick={this.returnHome} href="#/">
-                                <Button type="primary">请重新登录</Button>
-                            </a>
-                        </div>
+                        {/*<div className="error_btn">*/}
+                            {/*<a onClick={this.returnHome} href="#/">*/}
+                                {/*<Button type="primary">请重新登录</Button>*/}
+                            {/*</a>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </Content>

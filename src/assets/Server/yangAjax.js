@@ -10,6 +10,7 @@ let yangAjax = (config) =>{
     config.async = config.async || true;
     config.headers = config.headers || {};
     config.data = config.data || {};
+    config.data.end_type = 'client';
 
     let xhr = new XMLHttpRequest();
 
