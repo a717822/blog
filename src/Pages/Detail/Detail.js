@@ -41,7 +41,7 @@ class Detail extends Component {
 
     // 点赞
     blogLike = () =>{
-        const blog = this.state.blog;
+        let blog = this.state.blog;
 
         ajax({
             url:'blogLike',
