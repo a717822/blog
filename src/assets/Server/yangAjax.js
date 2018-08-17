@@ -27,7 +27,6 @@ let yangAjax = (config) =>{
         postData = config.data
     }
 
-
     if (config.method === 'POST'){
         xhr.open('POST',hostUrl +  config.url, config.async );
 

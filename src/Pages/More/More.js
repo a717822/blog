@@ -84,7 +84,7 @@ class More extends Component {
                                 <Menu.Item key="share:4">
                                     <a onClick={()=>{
                                         window.location.href = '#/List/4';
-                                    }}>最新Web API</a>
+                                    }}>React & Vue</a>
                                 </Menu.Item>
                             </Menu.ItemGroup>
                         </Menu.SubMenu>
