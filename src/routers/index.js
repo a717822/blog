@@ -11,6 +11,8 @@ import Detail from "../Pages/Detail/Detail";
 import More from "../Pages/More/More";
 import List from "../Pages/List/List";
 
+import Video from '../Pages/Video/Video'
+
 const router = [
 
     {
@@ -45,6 +47,12 @@ const router = [
     {
         path:'/Error/500',
         component:Error_500
+    },
+
+    // 视频
+    {
+       path:'/Video',
+        component:Video
     }
 ];
 
