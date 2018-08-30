@@ -3,7 +3,11 @@ import React, { Component , ajax} from 'react';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import {  Layout  , Icon , Divider , Menu , message} from 'antd';
 
+import 'highlight.js/styles/sunburst.css'
+import highlight from 'highlight.js'
+
 const { Content  , Header} = Layout;
+
 
 class Detail extends Component {
     constructor(props){
@@ -32,6 +36,14 @@ class Detail extends Component {
                     this.setState({
                         blog:data.list[0],
                     });
+
+                    if(document.getElementsByTagName('pre').length !== 0){
+                        for(let i in document.getElementsByTagName('pre')){
+                            if(document.getElementsByTagName('pre')[i].children){
+                                highlight.highlightBlock(document.getElementsByTagName('pre')[i].children[0]);
+                            }
+                        }
+                    }
 
                     document.title = data.list[0].title
                 }
