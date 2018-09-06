@@ -13,6 +13,9 @@ import List from "../Pages/List/List";
 
 import Video from '../Pages/Video/Video'
 
+import Resources from "../Pages/Resource/Resources";
+import ResourceDetail from "../Pages/Resource/ResourceDetail";
+
 const router = [
 
     {
@@ -53,7 +56,18 @@ const router = [
     {
        path:'/Video',
         component:Video
+    },
+
+    // 资源
+    {
+        path:'/Resource/List',
+        component:Resources
+    },
+    {
+        path:'/Resource/Detail/:id',
+        component:ResourceDetail
     }
+
 ];
 
 class Routers extends Component {
