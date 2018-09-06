@@ -14,11 +14,14 @@
     .ant-layout-content{
         padding: 0 70px;
     }
+    .mobile_header{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .blog-container{
-        min-height: 500px;
+        min-height: 600px;
     }
     .calendar{
         margin-left: 0;
@@ -28,6 +31,31 @@
     }
     .ant-list-item-extra{
         margin-bottom: 20px;
+    }
+    .pc_header{
+        display: none;
+    }
+    .mobile_header{
+        color: #fff;
+        font-size: 30px;
+        text-align: right;
+    }
+    .mobile_header .mobile_title{
+        text-align: center;
+        position: absolute;
+    }
+    .mobile_header .mobile_menu{
+        display: inline-block;
+    }
+    .ant-dropdown{
+        width: 100%;
+    }
+    .ant-drawer-body{
+        padding: 0;
+        height: 100%;
+    }
+    .ant-drawer-body .ant-menu{
+        height: 100%;
     }
 }
 
@@ -112,6 +140,7 @@
     padding: 8px 16px 4px 10px;
     background-color: #f6f8fa;
     border: none;
+    overflow: auto;
 }
 .blog_detail_content pre code{
     display: block;

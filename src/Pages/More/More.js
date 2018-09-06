@@ -1,10 +1,12 @@
 import React, { Component , ajax} from 'react';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
+import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout  , Divider ,  List , Icon , Menu} from 'antd';
+import {  Layout  , Divider ,  List , Icon } from 'antd';
 
-const { Content , Header } = Layout;
+
+const { Content } = Layout;
 
 const IconText = ({ type, text }) => (
     <span>
@@ -51,45 +53,7 @@ class More extends Component {
     render(){
         return(
             <Layout>
-                <Header>
-                    <Menu mode="horizontal"
-                          theme="dark"
-                          style={{ lineHeight: '64px' }}>
-                        <Menu.Item key="book">
-                            <a href="/">
-                                <Icon type="book" />首页
-                            </a>
-                        </Menu.Item>
-                        <Menu.SubMenu title={<span><Icon type="share-alt" />技术分享</span>}>
-                            <Menu.ItemGroup title="服务器端">
-                                <Menu.Item key="share:1">
-                                    <a  onClick={()=>{
-                                        window.location.href = '#/List/3';
-                                    }}>
-                                        Node.js
-                                    </a>
-                                </Menu.Item>
-                                <Menu.Item key="share:2">
-                                    <a onClick={()=>{
-                                        window.location.href = '#/List/1';
-                                    }}>PHP</a>
-                                </Menu.Item>
-                            </Menu.ItemGroup>
-                            <Menu.ItemGroup title="前端">
-                                <Menu.Item key="share:3">
-                                    <a onClick={()=>{
-                                        window.location.href = '#/List/2';
-                                    }}>前端</a>
-                                </Menu.Item>
-                                <Menu.Item key="share:4">
-                                    <a onClick={()=>{
-                                        window.location.href = '#/List/4';
-                                    }}>React & Vue</a>
-                                </Menu.Item>
-                            </Menu.ItemGroup>
-                        </Menu.SubMenu>
-                    </Menu>
-                </Header>
+                <TopHeader />
 
                 <Content>
                     <div className="more_content">
