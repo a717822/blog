@@ -11,7 +11,7 @@ class CopyRight extends Component {
                     Copyright <Icon type="copyright" /> 2018 Yangzilong Power By Node.js express
                     <div className="bei-An">
                         <a href="http://www.miitbeian.gov.cn"
-                           target="_blank">鄂ICP备18020612号
+                           target="_blank" rel="noopener noreferrer">鄂ICP备18020612号
                         </a>
                     </div>
                 </div>
