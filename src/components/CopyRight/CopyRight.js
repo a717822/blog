@@ -5,10 +5,18 @@ import './CopyRight.css';
 class CopyRight extends Component {
     render(){
         return(
-            <div className="copy_right">
-                <BackTop />
-                Copyright <Icon type="copyright" /> 2018 Yangzilong Power By Node.js express
+            <div>
+                <div className="copy_right">
+                    <BackTop />
+                    Copyright <Icon type="copyright" /> 2018 Yangzilong Power By Node.js express
+                    <div className="bei-An">
+                        <a href="http://www.miitbeian.gov.cn"
+                           target="_blank">鄂ICP备18020612号
+                        </a>
+                    </div>
+                </div>
             </div>
+
 
         )
     }
