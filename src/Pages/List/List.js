@@ -19,12 +19,18 @@ class blogList extends Component {
         this.state = {
             list:[],
             name:'',
-            select:localStorage.getItem('select')?localStorage.getItem('select'):'share:1',
+            id:this.props.match.params.id
         }
     }
 
     componentWillMount(){
         this.getBlogList();
+    }
+
+    componentWillUpdate(newProps) {
+        if(newProps.match.params.id !== this.state.id){
+            window.location.reload();
+        }
     }
 
     getBlogList = ()=>{
@@ -34,7 +40,7 @@ class blogList extends Component {
             dataType:'json',
             async:true,
             data:{
-                id:this.props.match.params.id
+                id:this.state.id
             },
             success:(data) =>{
                 if(data.id === 10000){

@@ -3,23 +3,32 @@ import React, { Component , ajax} from 'react';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout  , Icon , Divider  , message} from 'antd';
+import {  Layout  , Icon , Divider  , message , Avatar , Form , Input , Button} from 'antd';
 
 import 'highlight.js/styles/sunburst.css'
 import highlight from 'highlight.js'
+import './Detail.css'
 
 const { Content } = Layout;
+const { TextArea } = Input;
 
 class Detail extends Component {
     constructor(props){
         super(props);
         this.state = {
-            blog:''
+            blog:'',
+            discuss:[],
+
+            pid:0,
+            level:1,
+            name:''
         }
     }
 
     componentWillMount(){
         this.getBlogMsg();
+
+        this.getBlogDiscussList();
     }
 
     // 获取博客信息
@@ -52,6 +61,32 @@ class Detail extends Component {
         })
     };
 
+    // 获取博客评论列表
+    getBlogDiscussList = () =>{
+        ajax({
+            url:'discussList',
+            method:'post',
+            dataType:'json',
+            async:true,
+            data:{
+                aid:this.props.match.params.id
+            },
+            success:(data) =>{
+                if(data.id === 10000){
+
+                    this.setState({
+                        discuss:data.list
+                    })
+
+                }else{
+                    this.setState({
+                        discuss:['暂无评论']
+                    })
+                }
+            }
+        })
+    };
+
     // 点赞
     blogLike = () =>{
         let blog = this.state.blog;
@@ -79,13 +114,54 @@ class Detail extends Component {
         })
     };
 
+    // 回复
+    reply = (id , name) =>{
+        this.setState({
+            level:2,
+            pid:id,
+            name: '@'+ name
+        })
+    };
+
+    // 添加评论
+    addSubmit = (e) =>{
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+           if(!err){
+               values.pid = this.state.pid;
+               values.level = this.state.level;
+               values.aid = this.props.match.params.id;
+
+
+               ajax({
+                   url:'addDiscuss',
+                   method:'post',
+                   dataType:'json',
+                   async:true,
+                   data:values,
+                   success:(data) =>{
+                       if(data.id === 10000){
+                           message.success(data.msg);
+
+                           window.location.reload();
+                       }else{
+                           message.error(data.msg);
+                       }
+                   }
+               })
+           }
+        });
+    };
+
     render(){
+        const {getFieldDecorator} = this.props.form;
         return(
             <Layout>
                 <TopHeader />
 
                 <Content>
                     <div className="blog_detail">
+                        {/*详情头部*/}
                         <div className="blog_header">
                             <div className="blog_title">
                                 <h1>{this.state.blog.title}</h1>
@@ -115,12 +191,15 @@ class Detail extends Component {
                             <Divider />
                         </div>
 
+                        {/*内容*/}
                         <div className="blog_detail_content"
                              dangerouslySetInnerHTML = {{ __html:this.state.blog.content}}></div>
 
-                        <div className="blog_like" onClick={()=>{
-                            this.blogLike()
-                        }}>
+                        {/*点赞*/}
+                        <div className="blog_like" onClick={
+                            ()=>{
+                                this.blogLike()
+                            }}>
                             <span>
                                 <div>
                                     <Icon type="like-o" />
@@ -130,6 +209,137 @@ class Detail extends Component {
                             </span>
 
                         </div>
+
+                        {/*评论列表*/}
+                        <div className="discussContent">
+                            <Divider orientation="left">评论</Divider>
+                            <ul className="discuss_list">
+                                {
+                                    this.state.discuss.map((d) =>{
+                                        if(typeof d === 'object'){
+                                            if(d.children){
+                                                return  <li key={d.id}>
+                                                    <div className="discuss_parent">
+                                                        <div className="user_info clearfix">
+                                                            <div className="user_avatar">
+                                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                            </div>
+                                                            <div className="user_name">{d.nick}</div>
+                                                            <div className="time">{d.add_time}</div>
+                                                        </div>
+                                                        <div className="discuss_content">
+                                                            {d.content}
+
+                                                            <a style={{
+                                                                float:'right'
+                                                            }} key={d.id}
+                                                               onClick={()=>{
+                                                                   this.reply(d.id , d.nick)
+                                                               }}>回复</a>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        {
+                                                            d.children.map((c)=>{
+                                                                return <div className="discuss_children" key={c.id}>
+                                                                    <div className="user_info clearfix">
+                                                                        <div className="user_avatar">
+                                                                            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                                        </div>
+                                                                        <div className="user_name">{c.nick}</div>
+                                                                        <div className="time">{c.add_time}</div>
+                                                                    </div>
+                                                                    <div className="discuss_content">
+                                                                        {c.content}
+
+                                                                        <a style={{
+                                                                            float:'right'
+                                                                        }} key={c.id}
+                                                                           onClick={()=>{
+                                                                               this.reply(d.id ,  c.nick)
+                                                                           }}>回复</a>
+                                                                    </div>
+                                                                </div>
+                                                            })
+                                                        }
+                                                    </div>
+                                                </li>
+                                            }else{
+                                                return  <li key={d.id}>
+                                                    <div className="discuss_parent">
+                                                        <div className="user_info clearfix">
+                                                            <div className="user_avatar">
+                                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                            </div>
+                                                            <div className="user_name">{d.nick}</div>
+                                                            <div className="time">{d.add_time}</div>
+                                                        </div>
+                                                        <div className="discuss_content">
+                                                            {d.content}
+                                                            <a style={{
+                                                                float:'right'
+                                                            }} key={d.id}
+                                                               onClick={()=>{
+                                                                   this.reply(d.id ,  d.nick)
+                                                               }}>回复</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }else{
+                                            return '暂无相应评论';
+                                        }
+
+                                    })
+                                }
+                            </ul>
+                        </div>
+
+                        {/*添加评论*/}
+                        <div className="add_discuss">
+                            <Divider orientation="left">添加评论</Divider>
+                            <Form>
+                                <Form.Item
+                                    label="昵称"
+                                    labelCol={{ span: 5 }}
+                                    wrapperCol={{ span: 12 }}>
+                                    {getFieldDecorator('nick', {
+                                        rules: [{
+                                            required: true,
+                                            message: '请输入昵称!' }],
+                                    })(
+                                        <Input />
+                                    )}
+                                </Form.Item>
+                                <Form.Item
+                                    label="电子邮件"
+                                    labelCol={{ span: 5 }}
+                                    wrapperCol={{ span: 12 }}>
+                                    {getFieldDecorator('email', {
+                                        rules: [{
+                                            required: true,
+                                            message: '请输入电子邮件!' }],
+                                    })(
+                                        <Input />
+                                    )}
+                                </Form.Item>
+                                <Form.Item
+                                    label="评论内容"
+                                    labelCol={{ span: 5 }}
+                                    wrapperCol={{ span: 12 }}>
+                                    {getFieldDecorator('content', {
+                                        rules: [{
+                                            required: true,
+                                            message: '请输入评论内容!' }],
+                                        initialValue:this.state.name
+                                    })(
+                                        <TextArea rows={4} />
+                                    )}
+                                </Form.Item>
+                                <Button type="primary" onClick={this.addSubmit}>添加评论</Button>
+                            </Form>
+                        </div>
+
                     </div>
 
                 </Content>
@@ -140,4 +350,5 @@ class Detail extends Component {
     }
 }
 
-export default Detail;
+const DetailApp = Form.create()(Detail);
+export default DetailApp;

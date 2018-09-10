@@ -1,0 +1,44 @@
+.discuss_list li{
+    list-style: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.discuss_list li:last-child{
+    border-bottom: none;
+}
+.user_info{
+    margin-bottom: 10px;
+}
+.user_info .user_avatar{
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin-right: 10px;
+}
+.user_info .user_name{
+    float: left;
+    display: inline-block;
+    line-height: 32px;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+}
+.user_info .time{
+    color: #999;
+    float: right;
+    display: inline-block;
+}
+.discuss_parent,.discuss_children{
+    margin: 10px 0;
+}
+.discuss_content{
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+    line-height: 22px;
+    padding-left: 40px;
+}
+.discuss_children{
+    padding-left: 40px;
+}
+.ant-form-item-label{
+    text-align: left;
+}
