@@ -33,6 +33,8 @@ class Index extends Component {
 
     componentWillMount(){
         this.getIndexMsg();
+
+        localStorage.clear();
     }
 
     getIndexMsg = () =>{

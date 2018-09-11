@@ -1,71 +1,110 @@
 import React, { Component } from 'react';
 import {Route,HashRouter as Router} from 'react-router-dom';
+import { Icon } from 'antd';
+import Loadable from 'react-loadable';
 
-// 错误页面
-import Error_403 from '../Pages/Error/403'
-import Error_404 from '../Pages/Error/404'
-import Error_500 from '../Pages/Error/500'
+const Loading = ({ pastDelay, timedOut, error }) => {
+    if (pastDelay) {
+        return <div><Icon type="loading" /></div>;
+    } else if (timedOut) {
+        return <div>页面正在加载，请稍等...</div>;
+    } else if (error) {
+        return <div>页面加载失败!</div>;
+    }
+    return null;
+};
 
-import Index from '../Pages/Index/Index'
-import Detail from "../Pages/Detail/Detail";
-import More from "../Pages/More/More";
-import List from "../Pages/List/List";
-
-import Video from '../Pages/Video/Video'
-
-import Resources from "../Pages/Resource/Resources";
-import ResourceDetail from "../Pages/Resource/ResourceDetail";
 
 const router = [
 
     {
       path:'/',
-      component:Index
+      component:Loadable({
+          loader: () => import('../Pages/Index/Index'),
+          loading: Loading,
+          timeout: 10000
+      })
     },
 
     {
        path:'/Detail/:id',
-       component:Detail
+       component:Loadable({
+           loader: () => import('../Pages/Detail/Detail'),
+           loading: Loading,
+           timeout: 10000
+       })
     },
 
     {
         path:'/More/:type',
-        component:More
+        component:Loadable({
+            loader: () => import('../Pages/More/More'),
+            loading: Loading,
+            timeout: 10000
+        })
     },
 
     {
         path:'/List/:id',
-        component:List
+        component:Loadable({
+            loader: () => import('../Pages/List/List'),
+            loading: Loading,
+            timeout: 10000
+        })
     },
 
     // 错误页面
     {
         path:'/Error/403',
-        component:Error_403
+        component:Loadable({
+            loader: () => import('../Pages/Error/403'),
+            loading: Loading,
+            timeout: 10000
+        })
     },
     {
         path:'/Error/404',
-        component:Error_404
+        component:Loadable({
+            loader: () => import('../Pages/Error/404'),
+            loading: Loading,
+            timeout: 10000
+        })
     },
     {
         path:'/Error/500',
-        component:Error_500
+        component:Loadable({
+            loader: () => import('../Pages/Error/500'),
+            loading: Loading,
+            timeout: 10000
+        })
     },
 
     // 视频
     {
-       path:'/Video',
-        component:Video
+        path:'/Video',
+        component:Loadable({
+            loader: () => import('../Pages/Video/Video'),
+            loading: Loading,
+            timeout: 10000
+        })
     },
 
     // 资源
     {
         path:'/Resource/List',
-        component:Resources
+        component:Loadable({
+            loader: () => import('../Pages/Resource/Resources'),
+            loading: Loading,
+            timeout: 10000
+        })
     },
     {
         path:'/Resource/Detail/:id',
-        component:ResourceDetail
+        component:Loadable({
+            loader: () => import('../Pages/Resource/ResourceDetail'),
+            loading: Loading,
+            timeout: 10000
+        })
     }
 
 ];
