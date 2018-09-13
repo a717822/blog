@@ -3,11 +3,11 @@ import React, { Component , ajax} from 'react';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout , Icon , Calendar  , Card} from 'antd';
+import {  Layout , Icon , Calendar  , Card , Input , message , Divider} from 'antd';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 import 'moment/locale/zh-cn';
 
-
+import moment from 'moment';
 const { Content} = Layout;
 
 class Index extends Component {
@@ -26,6 +26,8 @@ class Index extends Component {
             news:[],
             news_style:'block',
             no_news_data:'none',
+
+            hots:[],
 
             CardLoading:true
         }
@@ -67,11 +69,13 @@ class Index extends Component {
                         })
                     }
 
+
                     this.setState({
                         fronts:data.list.front,
                         news:data.list.new,
                         servers:data.list.server,
-                        CardLoading:false
+                        CardLoading:false,
+                        hots:data.list.hots
                     });
 
                     document.title = '杨子龙的主页';
@@ -84,10 +88,35 @@ class Index extends Component {
          window.location.href = '#/Detail/' + e;
     };
 
+    // 搜索博客
+    searchBlog = (value) =>{
+        if(!value){
+            message.error('请输入博客标题！');
+
+            return true;
+        }
+
+
+        window.location.href = '#/Search/' + value;
+    };
+
     render(){
         return(
             <Layout>
                 <TopHeader />
+
+                <Content>
+                    <div className="blog" style={{
+                        marginTop:20
+                    }}>
+                        <Input.Search
+                            placeholder="请输入博客标题"
+                            enterButton="搜索博客"
+                            size="large"
+                            onSearch={this.searchBlog}
+                        />
+                    </div>
+                </Content>
 
                 <Content>
 
@@ -186,7 +215,28 @@ class Index extends Component {
                     </div>
 
                     <div className="calendar ant-col-md-7">
-                        <Calendar fullscreen={false} locale={locale}  />
+                        <Calendar fullscreen={false}
+                                  locale={locale}
+                                  disabledDate={(current)=>{
+                                      return current && current < moment().endOf('day')
+                                  }}/>
+                    </div>
+
+                    <div className="calendar blog ant-col-md-7">
+                        <Divider>热门博客</Divider>
+                        <div className="blog-content">
+                            <ul>
+                                {
+                                    this.state.hots.map((n , index) => {
+                                        return <li key={n.id}>
+                                                    <a onClick={()=>{
+                                                        this.goDetail(n.id)
+                                                    }}><span>{index + 1}、</span>{n.title}</a>
+                                                </li>
+                                    })
+                                }
+                            </ul>
+                        </div>
                     </div>
 
                 </Content>

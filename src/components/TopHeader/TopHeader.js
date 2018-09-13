@@ -52,6 +52,11 @@ class TopHeader extends Component {
                                 <Icon type="cloud-download" theme="outlined" />资源下载
                             </a>
                         </Menu.Item>
+                        <Menu.Item key="message">
+                            <a href="#/GuestBook">
+                                <Icon type="message" theme="outlined" />留言板
+                            </a>
+                        </Menu.Item>
                     </Menu>
                 </div>
                 <div className="mobile_header">
@@ -105,6 +110,11 @@ class TopHeader extends Component {
                             <Menu.Item key="Resource">
                                 <a href="#/Resource/List">
                                     <Icon type="cloud-download" theme="outlined" />资源下载
+                                </a>
+                            </Menu.Item>
+                            <Menu.Item key="message">
+                                <a href="#/GuestBook">
+                                    <Icon type="message" theme="outlined" />留言板
                                 </a>
                             </Menu.Item>
                         </Menu>

@@ -222,7 +222,7 @@ class Detail extends Component {
                                                     <div className="discuss_parent">
                                                         <div className="user_info clearfix">
                                                             <div className="user_avatar">
-                                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                                <Avatar icon="user" />
                                                             </div>
                                                             <div className="user_name">{d.nick}</div>
                                                             <div className="time">{d.add_time}</div>
@@ -244,7 +244,7 @@ class Detail extends Component {
                                                                 return <div className="discuss_children" key={c.id}>
                                                                     <div className="user_info clearfix">
                                                                         <div className="user_avatar">
-                                                                            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                                            <Avatar icon="user" />
                                                                         </div>
                                                                         <div className="user_name">{c.nick}</div>
                                                                         <div className="time">{c.add_time}</div>
@@ -269,7 +269,7 @@ class Detail extends Component {
                                                     <div className="discuss_parent">
                                                         <div className="user_info clearfix">
                                                             <div className="user_avatar">
-                                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                                <Avatar icon="user" />
                                                             </div>
                                                             <div className="user_name">{d.nick}</div>
                                                             <div className="time">{d.add_time}</div>
@@ -302,7 +302,7 @@ class Detail extends Component {
                                 <Form.Item
                                     label="昵称"
                                     labelCol={{ span: 5 }}
-                                    wrapperCol={{ span: 12 }}>
+                                    wrapperCol={{ span: 5 }}>
                                     {getFieldDecorator('nick', {
                                         rules: [{
                                             required: true,
@@ -314,7 +314,7 @@ class Detail extends Component {
                                 <Form.Item
                                     label="电子邮件"
                                     labelCol={{ span: 5 }}
-                                    wrapperCol={{ span: 12 }}>
+                                    wrapperCol={{ span: 5 }}>
                                     {getFieldDecorator('email', {
                                         rules: [{
                                             required: true,
@@ -326,7 +326,7 @@ class Detail extends Component {
                                 <Form.Item
                                     label="评论内容"
                                     labelCol={{ span: 5 }}
-                                    wrapperCol={{ span: 12 }}>
+                                    wrapperCol={{ span: 5 }}>
                                     {getFieldDecorator('content', {
                                         rules: [{
                                             required: true,
