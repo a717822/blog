@@ -16,8 +16,6 @@ class CopyRight extends Component {
                     </div>
                 </div>
             </div>
-
-
         )
     }
 }

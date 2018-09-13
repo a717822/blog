@@ -14,7 +14,6 @@ const Loading = ({ pastDelay, timedOut, error }) => {
     return null;
 };
 
-
 const router = [
 
     {
@@ -48,6 +47,15 @@ const router = [
         path:'/List/:id',
         component:Loadable({
             loader: () => import('../Pages/List/List'),
+            loading: Loading,
+            timeout: 10000
+        })
+    },
+
+    {
+        path:'/Search/:title',
+        component:Loadable({
+            loader: () => import('../Pages/Search/Search'),
             loading: Loading,
             timeout: 10000
         })
@@ -102,6 +110,16 @@ const router = [
         path:'/Resource/Detail/:id',
         component:Loadable({
             loader: () => import('../Pages/Resource/ResourceDetail'),
+            loading: Loading,
+            timeout: 10000
+        })
+    },
+
+    // 留言板
+    {
+        path:'/GuestBook',
+        component:Loadable({
+            loader: () => import('../Pages/GuestBook/GuestBook'),
             loading: Loading,
             timeout: 10000
         })
