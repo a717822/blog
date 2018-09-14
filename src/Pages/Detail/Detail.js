@@ -1,4 +1,5 @@
 import React, { Component , ajax} from 'react';
+import DocumentMeta from 'react-document-meta';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
@@ -21,7 +22,12 @@ class Detail extends Component {
 
             pid:0,
             level:1,
-            name:''
+            name:'',
+
+            title:'',
+            canonical:'',
+            keywords:'',
+            description:''
         }
     }
 
@@ -45,6 +51,11 @@ class Detail extends Component {
                 if(data.id === 10000){
                     this.setState({
                         blog:data.list[0],
+
+                        title:data.list[0].title + '_杨子龙的博客',
+                        canonical:'https://www.yangzilong.cn/#/Detail/' + this.props.match.params.id,
+                        keywords:'WebAPI,前端,权限管理,前端开发部落',
+                        description:data.list[0].description
                     });
 
                     if(document.getElementsByTagName('pre').length !== 0){
@@ -54,8 +65,6 @@ class Detail extends Component {
                             }
                         }
                     }
-
-                    document.title = data.list[0].title
                 }
             }
         })
@@ -155,51 +164,63 @@ class Detail extends Component {
 
     render(){
         const {getFieldDecorator} = this.props.form;
+        const meta = {
+            title: this.state.title,
+            description: this.state.description,
+            canonical: this.state.canonical,
+            meta: {
+                name: {
+                    keywords: this.state.keywords
+                }
+            }
+        };
+
         return(
-            <Layout>
-                <TopHeader />
+            <DocumentMeta {...meta}>
+                <Layout>
+                    <TopHeader />
 
-                <Content>
-                    <div className="blog_detail">
-                        {/*详情头部*/}
-                        <div className="blog_header">
-                            <div className="blog_title">
-                                <h1>{this.state.blog.title}</h1>
-                                <p>{this.state.blog.description}</p>
+                    <Content>
+                        <div className="blog_detail">
+                            {/*详情头部*/}
+                            <div className="blog_header">
+                                <div className="blog_title">
+                                    <h1>{this.state.blog.title}</h1>
+                                    <p>{this.state.blog.description}</p>
+                                </div>
+
+                                <div className="blog_header_label clearfix">
+                                    <div className="ant-col-md-6">
+                                        <Icon type="user" />
+                                        <span>{this.state.blog.u_name}</span>
+                                    </div>
+                                    <div className="ant-col-md-6">
+                                        <Icon type="calendar" />
+                                        <span>{this.state.blog.add_time}</span>
+                                    </div>
+                                    <div className="ant-col-md-6">
+                                        <Icon type="tags" />
+                                        <span>{this.state.blog.type}</span>
+                                    </div>
+                                    <div className="ant-col-md-6">
+                                        <Icon type="eye" />
+                                        <span>{this.state.blog.views}</span>
+                                    </div>
+
+                                </div>
+
+                                <Divider />
                             </div>
 
-                            <div className="blog_header_label clearfix">
-                                <div className="ant-col-md-6">
-                                    <Icon type="user" />
-                                    <span>{this.state.blog.u_name}</span>
-                                </div>
-                                <div className="ant-col-md-6">
-                                    <Icon type="calendar" />
-                                    <span>{this.state.blog.add_time}</span>
-                                </div>
-                                <div className="ant-col-md-6">
-                                    <Icon type="tags" />
-                                    <span>{this.state.blog.type}</span>
-                                </div>
-                                <div className="ant-col-md-6">
-                                    <Icon type="eye" />
-                                    <span>{this.state.blog.views}</span>
-                                </div>
+                            {/*内容*/}
+                            <div className="blog_detail_content"
+                                 dangerouslySetInnerHTML = {{ __html:this.state.blog.content}}></div>
 
-                            </div>
-
-                            <Divider />
-                        </div>
-
-                        {/*内容*/}
-                        <div className="blog_detail_content"
-                             dangerouslySetInnerHTML = {{ __html:this.state.blog.content}}></div>
-
-                        {/*点赞*/}
-                        <div className="blog_like" onClick={
-                            ()=>{
-                                this.blogLike()
-                            }}>
+                            {/*点赞*/}
+                            <div className="blog_like" onClick={
+                                ()=>{
+                                    this.blogLike()
+                                }}>
                             <span>
                                 <div>
                                     <Icon type="like-o" />
@@ -208,144 +229,146 @@ class Detail extends Component {
                                 <div>{this.state.blog.likes}</div>
                             </span>
 
-                        </div>
+                            </div>
 
-                        {/*评论列表*/}
-                        <div className="discussContent">
-                            <Divider orientation="left">评论</Divider>
-                            <ul className="discuss_list">
-                                {
-                                    this.state.discuss.map((d) =>{
-                                        if(typeof d === 'object'){
-                                            if(d.children){
-                                                return  <li key={d.id}>
-                                                    <div className="discuss_parent">
-                                                        <div className="user_info clearfix">
-                                                            <div className="user_avatar">
-                                                                <Avatar icon="user" />
-                                                            </div>
-                                                            <div className="user_name">{d.nick}</div>
-                                                            <div className="time">{d.add_time}</div>
-                                                        </div>
-                                                        <div className="discuss_content">
-                                                            {d.content}
-
-                                                            <a style={{
-                                                                float:'right'
-                                                            }} key={d.id}
-                                                               onClick={()=>{
-                                                                   this.reply(d.id , d.nick)
-                                                               }}>回复</a>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        {
-                                                            d.children.map((c)=>{
-                                                                return <div className="discuss_children" key={c.id}>
-                                                                    <div className="user_info clearfix">
-                                                                        <div className="user_avatar">
-                                                                            <Avatar icon="user" />
-                                                                        </div>
-                                                                        <div className="user_name">{c.nick}</div>
-                                                                        <div className="time">{c.add_time}</div>
-                                                                    </div>
-                                                                    <div className="discuss_content">
-                                                                        {c.content}
-
-                                                                        <a style={{
-                                                                            float:'right'
-                                                                        }} key={c.id}
-                                                                           onClick={()=>{
-                                                                               this.reply(d.id ,  c.nick)
-                                                                           }}>回复</a>
-                                                                    </div>
+                            {/*评论列表*/}
+                            <div className="discussContent">
+                                <Divider orientation="left">评论</Divider>
+                                <ul className="discuss_list">
+                                    {
+                                        this.state.discuss.map((d) =>{
+                                            if(typeof d === 'object'){
+                                                if(d.children){
+                                                    return  <li key={d.id}>
+                                                        <div className="discuss_parent">
+                                                            <div className="user_info clearfix">
+                                                                <div className="user_avatar">
+                                                                    <Avatar icon="user" />
                                                                 </div>
-                                                            })
-                                                        }
-                                                    </div>
-                                                </li>
-                                            }else{
-                                                return  <li key={d.id}>
-                                                    <div className="discuss_parent">
-                                                        <div className="user_info clearfix">
-                                                            <div className="user_avatar">
-                                                                <Avatar icon="user" />
+                                                                <div className="user_name">{d.nick}</div>
+                                                                <div className="time">{d.add_time}</div>
                                                             </div>
-                                                            <div className="user_name">{d.nick}</div>
-                                                            <div className="time">{d.add_time}</div>
+                                                            <div className="discuss_content">
+                                                                {d.content}
+
+                                                                <a style={{
+                                                                    float:'right'
+                                                                }} key={d.id}
+                                                                   onClick={()=>{
+                                                                       this.reply(d.id , d.nick)
+                                                                   }}>回复</a>
+                                                            </div>
                                                         </div>
-                                                        <div className="discuss_content">
-                                                            {d.content}
-                                                            <a style={{
-                                                                float:'right'
-                                                            }} key={d.id}
-                                                               onClick={()=>{
-                                                                   this.reply(d.id ,  d.nick)
-                                                               }}>回复</a>
+                                                        <div>
+                                                            {
+                                                                d.children.map((c)=>{
+                                                                    return <div className="discuss_children" key={c.id}>
+                                                                        <div className="user_info clearfix">
+                                                                            <div className="user_avatar">
+                                                                                <Avatar icon="user" />
+                                                                            </div>
+                                                                            <div className="user_name">{c.nick}</div>
+                                                                            <div className="time">{c.add_time}</div>
+                                                                        </div>
+                                                                        <div className="discuss_content">
+                                                                            {c.content}
+
+                                                                            <a style={{
+                                                                                float:'right'
+                                                                            }} key={c.id}
+                                                                               onClick={()=>{
+                                                                                   this.reply(d.id ,  c.nick)
+                                                                               }}>回复</a>
+                                                                        </div>
+                                                                    </div>
+                                                                })
+                                                            }
                                                         </div>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                }else{
+                                                    return  <li key={d.id}>
+                                                        <div className="discuss_parent">
+                                                            <div className="user_info clearfix">
+                                                                <div className="user_avatar">
+                                                                    <Avatar icon="user" />
+                                                                </div>
+                                                                <div className="user_name">{d.nick}</div>
+                                                                <div className="time">{d.add_time}</div>
+                                                            </div>
+                                                            <div className="discuss_content">
+                                                                {d.content}
+                                                                <a style={{
+                                                                    float:'right'
+                                                                }} key={d.id}
+                                                                   onClick={()=>{
+                                                                       this.reply(d.id ,  d.nick)
+                                                                   }}>回复</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            }else{
+                                                return '暂无相应评论';
                                             }
-                                        }else{
-                                            return '暂无相应评论';
-                                        }
 
-                                    })
-                                }
-                            </ul>
+                                        })
+                                    }
+                                </ul>
+                            </div>
+
+                            {/*添加评论*/}
+                            <div className="add_discuss">
+                                <Divider orientation="left">添加评论</Divider>
+                                <Form>
+                                    <Form.Item
+                                        label="昵称"
+                                        labelCol={{ span: 5 }}
+                                        wrapperCol={{ span: 5 }}>
+                                        {getFieldDecorator('nick', {
+                                            rules: [{
+                                                required: true,
+                                                message: '请输入昵称!' }],
+                                        })(
+                                            <Input />
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item
+                                        label="电子邮件"
+                                        labelCol={{ span: 5 }}
+                                        wrapperCol={{ span: 5 }}>
+                                        {getFieldDecorator('email', {
+                                            rules: [{
+                                                required: true,
+                                                message: '请输入电子邮件!' }],
+                                        })(
+                                            <Input />
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item
+                                        label="评论内容"
+                                        labelCol={{ span: 5 }}
+                                        wrapperCol={{ span: 5 }}>
+                                        {getFieldDecorator('content', {
+                                            rules: [{
+                                                required: true,
+                                                message: '请输入评论内容!' }],
+                                            initialValue:this.state.name
+                                        })(
+                                            <TextArea rows={4} />
+                                        )}
+                                    </Form.Item>
+                                    <Button type="primary" onClick={this.addSubmit}>添加评论</Button>
+                                </Form>
+                            </div>
+
                         </div>
 
-                        {/*添加评论*/}
-                        <div className="add_discuss">
-                            <Divider orientation="left">添加评论</Divider>
-                            <Form>
-                                <Form.Item
-                                    label="昵称"
-                                    labelCol={{ span: 5 }}
-                                    wrapperCol={{ span: 5 }}>
-                                    {getFieldDecorator('nick', {
-                                        rules: [{
-                                            required: true,
-                                            message: '请输入昵称!' }],
-                                    })(
-                                        <Input />
-                                    )}
-                                </Form.Item>
-                                <Form.Item
-                                    label="电子邮件"
-                                    labelCol={{ span: 5 }}
-                                    wrapperCol={{ span: 5 }}>
-                                    {getFieldDecorator('email', {
-                                        rules: [{
-                                            required: true,
-                                            message: '请输入电子邮件!' }],
-                                    })(
-                                        <Input />
-                                    )}
-                                </Form.Item>
-                                <Form.Item
-                                    label="评论内容"
-                                    labelCol={{ span: 5 }}
-                                    wrapperCol={{ span: 5 }}>
-                                    {getFieldDecorator('content', {
-                                        rules: [{
-                                            required: true,
-                                            message: '请输入评论内容!' }],
-                                        initialValue:this.state.name
-                                    })(
-                                        <TextArea rows={4} />
-                                    )}
-                                </Form.Item>
-                                <Button type="primary" onClick={this.addSubmit}>添加评论</Button>
-                            </Form>
-                        </div>
+                    </Content>
 
-                    </div>
+                    <CopyRight />
+                </Layout>
+            </DocumentMeta>
 
-                </Content>
-
-                <CopyRight />
-            </Layout>
         )
     }
 }

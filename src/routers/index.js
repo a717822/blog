@@ -5,7 +5,15 @@ import Loadable from 'react-loadable';
 
 const Loading = ({ pastDelay, timedOut, error }) => {
     if (pastDelay) {
-        return <div><Icon type="loading" /></div>;
+        return <div style={{
+            position: 'fixed',
+            width: '100%',
+            height: '100%',
+            textAlign: 'center',
+        }}>
+                    <Icon type="loading" />
+                    <h1>由于网络原因，首页加载可能很慢，请耐心等待...</h1>
+               </div>;
     } else if (timedOut) {
         return <div>页面正在加载，请稍等...</div>;
     } else if (error) {
