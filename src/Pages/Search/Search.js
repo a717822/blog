@@ -1,4 +1,5 @@
 import React, { Component , ajax} from 'react';
+import DocumentMeta from 'react-document-meta';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
@@ -18,7 +19,12 @@ class Search extends Component {
         super(props);
         this.state = {
             list:[],
-            title:this.props.match.params.title
+            key:this.props.match.params.title,
+
+            title:'',
+            canonical:'',
+            keywords:'',
+            description:''
         }
     }
 
@@ -33,20 +39,28 @@ class Search extends Component {
             dataType:'json',
             async:true,
             data:{
-                title:this.state.title
+                title:this.state.key
             },
             success:(data) =>{
                 if(data.id === 10000){
                     this.setState({
                         list:data.list,
+
+                        title:this.state.key + '_搜索列表_杨子龙的博客',
+                        canonical:'https://www.yangzilong.cn/#/Search/' + this.state.key,
+                        keywords:this.state.key + ',WebAPI,前端,权限管理,前端开发部落',
+                        description:'本页是关于'+this.state.key+'搜索列表页面'
                     });
                 }else{
                     this.setState({
                         list:[],
+
+                        title:this.state.key + '_搜索列表_杨子龙的博客',
+                        canonical:'https://www.yangzilong.cn/#/Search/' + this.state.key,
+                        keywords:this.state.key + ',WebAPI,前端,权限管理,前端开发部落',
+                        description:'本页是关于'+this.state.key+'搜索列表页面'
                     });
                 }
-
-                document.title = this.state.title + '—杨子龙的主页—搜索';
             }
         })
     };
@@ -71,66 +85,86 @@ class Search extends Component {
                 if(data.id === 10000){
                     this.setState({
                         list:data.list,
+
+                        title:value + '_搜索列表_杨子龙的博客',
+                        canonical:'https://www.yangzilong.cn/#/Search/' + value,
+                        keywords:value + ',WebAPI,前端,权限管理,前端开发部落',
+                        description:'本页是关于'+this.state.key+'搜索列表页面'
                     });
 
                 }else{
                     this.setState({
                         list:[],
+
+                        title:value + '_搜索列表_杨子龙的博客',
+                        canonical:'https://www.yangzilong.cn/#/Search/' + value,
+                        keywords:value + ',WebAPI,前端,权限管理,前端开发部落',
+                        description:'本页是关于'+value+'搜索列表页面'
                     });
                 }
-
-                this.props.match.params.title = value;
-                document.title = value + '—杨子龙的主页—搜索';
             }
         })
     };
 
     render(){
+        const meta = {
+            title: this.state.title,
+            description: this.state.description,
+            canonical: this.state.canonical,
+            meta: {
+                name: {
+                    keywords: this.state.keywords
+                }
+            }
+        };
+
         return(
-            <Layout>
-                <TopHeader />
+            <DocumentMeta {...meta}>
+                <Layout>
+                    <TopHeader />
 
-                <Content>
-                    <div className="blog" style={{
-                        marginTop:20
-                    }}>
-                        <Input.Search
-                            placeholder="请输入标题"
-                            enterButton="搜索博客"
-                            size="large"
-                            onSearch={this.searchBlog}
-                            defaultValue={this.state.title}
-                        />
-                    </div>
-                </Content>
-
-                <Content>
-                    <div className="more_content">
-                        <div className="more_list">
-                            <List itemLayout="vertical"
-                                  size="large"
-                                  dataSource={this.state.list}
-                                  pagination={{pageSize: 10,}}
-                                  renderItem={item => (
-                                      <List.Item
-                                          key={item.title}
-                                          actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}
-                                          extra={<img width={270} height={168} alt="博客图片" src={item.imgsrc} /> }
-                                      >
-                                          <List.Item.Meta
-                                              title={<a href={item.href}>{item.title}</a>}
-                                          />
-                                          {item.description}
-                                      </List.Item>
-                                  )}>
-
-                            </List>
+                    <Content>
+                        <div className="blog" style={{
+                            marginTop:20
+                        }}>
+                            <Input.Search
+                                placeholder="请输入标题"
+                                enterButton="搜索博客"
+                                size="large"
+                                onSearch={this.searchBlog}
+                                defaultValue={this.state.key}
+                            />
                         </div>
-                    </div>
-                </Content>
+                    </Content>
 
-                <CopyRight />
-            </Layout>
+                    <Content>
+                        <div className="more_content">
+                            <div className="more_list">
+                                <List itemLayout="vertical"
+                                      size="large"
+                                      dataSource={this.state.list}
+                                      pagination={{pageSize: 10,}}
+                                      renderItem={item => (
+                                          <List.Item
+                                              key={item.title}
+                                              actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}
+                                              extra={<img width={270} height={168} alt="博客图片" src={item.imgsrc} /> }
+                                          >
+                                              <List.Item.Meta
+                                                  title={<a href={item.href}>{item.title}</a>}
+                                              />
+                                              {item.description}
+                                          </List.Item>
+                                      )}>
+
+                                </List>
+                            </div>
+                        </div>
+                    </Content>
+
+                    <CopyRight />
+                </Layout>
+            </DocumentMeta>
         )
     }
 }
