@@ -138,7 +138,7 @@ const router = [
 class Routers extends Component {
     render() {
         return (
-            <Router>
+            <Router hashType={'hashbang'}>
                 <div className='test'>
                     {
                         router.map((r) => {

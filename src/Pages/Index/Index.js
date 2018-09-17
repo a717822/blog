@@ -4,7 +4,7 @@ import DocumentMeta from 'react-document-meta';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout , Icon , Calendar  , Card , Input , message , Divider} from 'antd';
+import {  Layout , Icon , Calendar  , Card , Input , message , Divider } from 'antd';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 import 'moment/locale/zh-cn';
 
@@ -41,8 +41,12 @@ class Index extends Component {
 
             hots:[],
 
+            messages_style:'block',
+            no_messages_data:'none',
+            messages:[],
+
             CardLoading:true
-        }
+        };
     }
 
     componentWillMount(){
@@ -81,13 +85,22 @@ class Index extends Component {
                         })
                     }
 
+                    if(data.list.messages.length === 0){
+                        this.setState({
+                            messages_style:'none',
+                            no_messages_data:'block'
+                        })
+                    }
+
 
                     this.setState({
                         fronts:data.list.front,
                         news:data.list.new,
                         servers:data.list.server,
                         CardLoading:false,
-                        hots:data.list.hots
+                        hots:data.list.hots,
+                        messages:data.list.messages,
+                        banner:data.list.banners
                     });
                 }
             }
@@ -113,7 +126,9 @@ class Index extends Component {
     render(){
         return(
             <DocumentMeta {...meta}>
-                <Layout>
+                <Layout style={{
+                    zIndex:10
+                }}>
                     <TopHeader />
 
                     <Content>
@@ -247,6 +262,26 @@ class Index extends Component {
                                         })
                                     }
                                 </ul>
+                            </div>
+                        </div>
+
+                        <div className="calendar blog ant-col-md-7">
+                            <Divider>留言墙</Divider>
+                            <div className="blog-content" style={{display:this.state.messages_style}}>
+                                <ul>
+                                    {
+                                        this.state.messages.map((n) => {
+                                            return <li key={n.id}>
+                                                        <a>{n.content}</a>
+                                                    </li>
+                                        })
+                                    }
+                                </ul>
+                            </div>
+
+                            <div className="no_data"
+                                 style={{display:this.state.no_messages_data}}>
+                                暂无留言
                             </div>
                         </div>
 
