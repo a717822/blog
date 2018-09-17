@@ -4,7 +4,7 @@
  */
 let yangAjax = (config) =>{
     let hostUrl = 'https://server.yangzilong.cn:3000/';
-    // let hostUrl = 'https://localhost:3000/'
+    // let hostUrl = 'https://localhost:3001/'
 
     config = config || {};
     config.method = (config.method || "GET").toUpperCase();
