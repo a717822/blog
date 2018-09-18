@@ -45,6 +45,9 @@ class Index extends Component {
             no_messages_data:'none',
             messages:[],
 
+            visitor:0,
+            views:0,
+
             CardLoading:true
         };
     }
@@ -100,7 +103,9 @@ class Index extends Component {
                         CardLoading:false,
                         hots:data.list.hots,
                         messages:data.list.messages,
-                        banner:data.list.banners
+                        banner:data.list.banners,
+                        visitor:data.list.visitor,
+                        views:data.list.views
                     });
                 }
             }
@@ -240,48 +245,63 @@ class Index extends Component {
                             </Card>
                         </div>
 
-                        <div className="calendar ant-col-md-7">
-                            <Calendar fullscreen={false}
-                                      locale={locale}
-                                      disabledDate={(current)=>{
-                                          return current && current < moment().endOf('day')
-                                      }}/>
-                        </div>
-
-                        <div className="calendar blog ant-col-md-7">
-                            <Divider>热门博客</Divider>
-                            <div className="blog-content">
-                                <ul>
-                                    {
-                                        this.state.hots.map((n , index) => {
-                                            return <li key={n.id}>
-                                                <a onClick={()=>{
-                                                    this.goDetail(n.id)
-                                                }}><span>{index + 1}、</span>{n.title}</a>
-                                            </li>
-                                        })
-                                    }
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="calendar blog ant-col-md-7">
-                            <Divider>留言墙</Divider>
-                            <div className="blog-content" style={{display:this.state.messages_style}}>
-                                <ul>
-                                    {
-                                        this.state.messages.map((n) => {
-                                            return <li key={n.id}>
-                                                        <a>{n.content}</a>
-                                                    </li>
-                                        })
-                                    }
-                                </ul>
+                        <div className="ant-col-md-7">
+                            <div className="clearfix calendar" style={{
+                                padding:30
+                            }}>
+                                <div className="ant-col-md-10">
+                                    <Icon type="user" theme="outlined" />
+                                    <span>浏览次数：{this.state.visitor}</span>
+                                </div>
+                                <div className="ant-col-md-10">
+                                    <Icon type="eye" />
+                                    <span>文章查看次数：{this.state.views}</span>
+                                </div>
                             </div>
 
-                            <div className="no_data"
-                                 style={{display:this.state.no_messages_data}}>
-                                暂无留言
+                            <div className="calendar">
+                                <Calendar fullscreen={false}
+                                          locale={locale}
+                                          disabledDate={(current)=>{
+                                              return current && current < moment().endOf('day')
+                                          }}/>
+                            </div>
+
+                            <div className="calendar blog">
+                                <Divider>热门博客</Divider>
+                                <div className="blog-content">
+                                    <ul>
+                                        {
+                                            this.state.hots.map((n , index) => {
+                                                return <li key={n.id}>
+                                                    <a onClick={()=>{
+                                                        this.goDetail(n.id)
+                                                    }}><span>{index + 1}、</span>{n.title}</a>
+                                                </li>
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="calendar blog">
+                                <Divider>留言墙</Divider>
+                                <div className="blog-content" style={{display:this.state.messages_style}}>
+                                    <ul>
+                                        {
+                                            this.state.messages.map((n) => {
+                                                return <li key={n.id}>
+                                                    <a>{n.content}</a>
+                                                </li>
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+
+                                <div className="no_data"
+                                     style={{display:this.state.no_messages_data}}>
+                                    暂无留言
+                                </div>
                             </div>
                         </div>
 
