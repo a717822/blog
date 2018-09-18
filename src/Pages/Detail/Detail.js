@@ -27,7 +27,9 @@ class Detail extends Component {
             title:'',
             canonical:'',
             keywords:'',
-            description:''
+            description:'',
+
+            icon_theme:'outlined'
         }
     }
 
@@ -100,27 +102,30 @@ class Detail extends Component {
     blogLike = () =>{
         let blog = this.state.blog;
 
-        ajax({
-            url:'blogLike',
-            method:'post',
-            dataType:'json',
-            async:true,
-            data:{
-                id:this.props.match.params.id
-            },
-            success:(data) =>{
-                if(data.id === 10000){
-                    message.success('点赞成功');
-                    blog.likes = parseInt(blog.likes) + 1;
+        if(this.state.icon_theme === 'outlined'){
+            ajax({
+                url:'blogLike',
+                method:'post',
+                dataType:'json',
+                async:true,
+                data:{
+                    id:this.props.match.params.id
+                },
+                success:(data) =>{
+                    if(data.id === 10000){
+                        message.success('点赞成功');
+                        blog.likes = parseInt(blog.likes) + 1;
 
-                    this.setState({
-                        blog:blog
-                    })
-                }else{
-                    message.error('点赞失败');
+                        this.setState({
+                            blog:blog,
+                            icon_theme:'filled'
+                        })
+                    }else{
+                        message.error('点赞失败');
+                    }
                 }
-            }
-        })
+            })
+        }
     };
 
     // 回复
@@ -214,7 +219,8 @@ class Detail extends Component {
 
                             {/*内容*/}
                             <div className="blog_detail_content"
-                                 dangerouslySetInnerHTML = {{ __html:this.state.blog.content}}></div>
+                                 dangerouslySetInnerHTML = {{ __html:this.state.blog.content}}>
+                            </div>
 
                             {/*点赞*/}
                             <div className="blog_like" onClick={
@@ -223,7 +229,7 @@ class Detail extends Component {
                                 }}>
                             <span>
                                 <div>
-                                    <Icon type="like-o" />
+                                    <Icon type="like" theme={this.state.icon_theme} />
                                 </div>
 
                                 <div>{this.state.blog.likes}</div>
