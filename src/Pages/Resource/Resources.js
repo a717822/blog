@@ -57,7 +57,7 @@ class Resources extends Component{
                                               <p style={{
                                                   textAlign:'right'
                                               }}><a onClick={()=>{
-                                                  window.location.href = '#/Resource/Detail/' + item.id
+                                                  window.location.href = '/Resource/Detail/' + item.id
                                               }}>详情</a></p>
                                           </Card>
                                       </List.Item>
@@ -83,7 +83,7 @@ class Resources extends Component{
                     this.setState({
                         resource:data.list,
                         title:'资源下载_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/Resource/List',
+                        canonical:'https://www.yangzilong.cn/Resource/List',
                         keywords:'开源代码,WebAPI,前端,权限管理,前端开发部落',
                         description:'本页提供部分开源代码'
                     });

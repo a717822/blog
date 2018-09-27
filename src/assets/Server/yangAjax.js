@@ -4,7 +4,7 @@
  */
 let yangAjax = (config) =>{
     let hostUrl = 'https://server.yangzilong.cn:3000/';
-    // let hostUrl = 'https://localhost:3001/'
+    // let hostUrl = 'https://localhost:3001/';
 
     config = config || {};
     config.method = (config.method || "GET").toUpperCase();
@@ -72,7 +72,7 @@ let yangAjax = (config) =>{
                 ret.status = xhr.status;
 
                 if(ret.status === 500 || ret.status === 0){
-                    window.location.href = '#/Error/500'
+                    window.location.href = '/Error/500'
                 }
 
                 config.fail && config.fail(ret.status , ret.statusText);
