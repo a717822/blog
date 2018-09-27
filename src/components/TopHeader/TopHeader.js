@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Layout , Icon , Menu ,Drawer} from 'antd';
 const { Header} = Layout;
 
@@ -8,7 +9,7 @@ class TopHeader extends Component {
         this.state = {
             visible:false,
             selected: localStorage.getItem('blog_selected')?localStorage.getItem('blog_selected'):'book'
-        }
+        };
     }
 
     chooseMenu = (e) =>{
@@ -25,37 +26,37 @@ class TopHeader extends Component {
                           style={{ lineHeight: '64px' }}
                           onClick={this.chooseMenu}>
                         <Menu.Item key="book">
-                            <a href="/">
+                            <Link to="/">
                                 <Icon type="book" />首页
-                            </a>
+                            </Link>
                         </Menu.Item>
                         <Menu.SubMenu title={<span><Icon type="share-alt" />技术分享</span>}>
                             <Menu.ItemGroup title="服务器端">
                                 <Menu.Item key="share:1">
-                                    <a href='/List/3'>Node.js</a>
+                                    <Link to='/List/3'>Node.js</Link>
                                 </Menu.Item>
                                 <Menu.Item key="share:2">
-                                    <a href='/List/1'>PHP</a>
+                                    <Link to='/List/1'>PHP</Link>
                                 </Menu.Item>
                             </Menu.ItemGroup>
                             <Menu.ItemGroup title="前端">
                                 <Menu.Item key="share:3">
-                                    <a href='/List/2'>前端</a>
+                                    <Link to='/List/2'>前端</Link>
                                 </Menu.Item>
                                 <Menu.Item key="share:4">
-                                    <a href='/List/4'>React & Vue</a>
+                                    <Link to='/List/4'>React & Vue</Link>
                                 </Menu.Item>
                             </Menu.ItemGroup>
                         </Menu.SubMenu>
                         <Menu.Item key="Resource">
-                            <a href="/Resource/List">
+                            <Link to="/Resource/List">
                                 <Icon type="cloud-download" theme="outlined" />资源下载
-                            </a>
+                            </Link>
                         </Menu.Item>
                         <Menu.Item key="message">
-                            <a href="/GuestBook">
+                            <Link to="/GuestBook">
                                 <Icon type="message" theme="outlined" />留言板
-                            </a>
+                            </Link>
                         </Menu.Item>
                     </Menu>
                 </div>
@@ -85,37 +86,37 @@ class TopHeader extends Component {
                             theme="dark"
                         >
                             <Menu.Item key="book">
-                                <a href="/">
+                                <Link to="/">
                                     <Icon type="book" />首页
-                                </a>
+                                </Link>
                             </Menu.Item>
                             <Menu.SubMenu title={<span><Icon type="share-alt" />技术分享</span>}>
                                 <Menu.ItemGroup title="服务器端">
                                     <Menu.Item key="share:1">
-                                        <a href='/List/3'>Node.js</a>
+                                        <Link to='/List/3'>Node.js</Link>
                                     </Menu.Item>
                                     <Menu.Item key="share:2">
-                                        <a href='/List/1'>PHP</a>
+                                        <Link to='/List/1'>PHP</Link>
                                     </Menu.Item>
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup title="前端">
                                     <Menu.Item key="share:3">
-                                        <a href='/List/2'>前端</a>
+                                        <Link to='/List/2'>前端</Link>
                                     </Menu.Item>
                                     <Menu.Item key="share:4">
-                                        <a href='/List/4'>React & Vue</a>
+                                        <Link to='/List/4'>React & Vue</Link>
                                     </Menu.Item>
                                 </Menu.ItemGroup>
                             </Menu.SubMenu>
                             <Menu.Item key="Resource">
-                                <a href="/Resource/List">
+                                <Link to="/Resource/List">
                                     <Icon type="cloud-download" theme="outlined" />资源下载
-                                </a>
+                                </Link>
                             </Menu.Item>
                             <Menu.Item key="message">
-                                <a href="/GuestBook">
+                                <Link to="/GuestBook">
                                     <Icon type="message" theme="outlined" />留言板
-                                </a>
+                                </Link>
                             </Menu.Item>
                         </Menu>
                     </Drawer>

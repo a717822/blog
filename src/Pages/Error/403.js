@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import DocumentMeta from 'react-document-meta';
 
 // 加载部分组件
 import CopyRight from '../../components/CopyRight/CopyRight'
 import ErrorTemplate from '../../components/ErrorTemplate/ErrorTemplate'
 
 import { Layout } from 'antd';
+
+const meta = {
+    title: '403页面_杨子龙的博客',
+    description: '这是我的第二版博客,有兴趣的话,可以关注我的百家号:前端开发部落',
+};
 
 class ErrorPage extends Component {
     constructor(props){
@@ -18,22 +24,24 @@ class ErrorPage extends Component {
     }
     render(){
         return(
-            <Layout>
-
+            <DocumentMeta {...meta}>
                 <Layout>
 
-                    {/*Content start*/}
-                    <ErrorTemplate errorSet={this.state.errorSet} />
-                    {/*Content end*/}
+                    <Layout>
 
-                    {/*copyright start*/}
+                        {/*Content start*/}
+                        <ErrorTemplate errorSet={this.state.errorSet} />
+                        {/*Content end*/}
 
-                    <CopyRight />
+                        {/*copyright start*/}
 
-                    {/*copyright end*/}
+                        <CopyRight />
 
+                        {/*copyright end*/}
+
+                    </Layout>
                 </Layout>
-            </Layout>
+            </DocumentMeta>
         )
     }
 }

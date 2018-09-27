@@ -17,6 +17,7 @@ import Resources from "../Pages/Resource/Resources";
 import ResourceDetail from "../Pages/Resource/ResourceDetail";
 
 import GuestBook from '../Pages/GuestBook/GuestBook'
+import Search from "../Pages/Search/Search";
 
 const router = [
 
@@ -42,15 +43,15 @@ const router = [
 
     // 错误页面
     {
-        path:'/Error/403',
+        path:'/403',
         component:Error_403
     },
     {
-        path:'/Error/404',
+        path:'/404',
         component:Error_404
     },
     {
-        path:'/Error/500',
+        path:'/500',
         component:Error_500
     },
 
@@ -74,6 +75,12 @@ const router = [
     {
         path:'/GuestBook',
         component:GuestBook
+    },
+
+    // 搜索
+    {
+        path:'/Search/:title',
+        component:Search
     }
 ];
 
