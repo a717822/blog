@@ -1,6 +1,8 @@
 // 资源下载
 
 import React, { Component , ajax} from 'react';
+import { Link } from 'react-router-dom';
+
 import DocumentMeta from 'react-document-meta';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
@@ -56,9 +58,7 @@ class Resources extends Component{
                                               <p>下载次数：{item.num}</p>
                                               <p style={{
                                                   textAlign:'right'
-                                              }}><a onClick={()=>{
-                                                  window.location.href = '/Resource/Detail/' + item.id
-                                              }}>详情</a></p>
+                                              }}><Link to={'/Resource/Detail/' + item.id}>详情</Link></p>
                                           </Card>
                                       </List.Item>
                                   )} />

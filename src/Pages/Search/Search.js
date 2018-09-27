@@ -25,7 +25,7 @@ class Search extends Component {
             canonical:'',
             keywords:'',
             description:''
-        }
+        };
     }
 
     componentWillMount(){

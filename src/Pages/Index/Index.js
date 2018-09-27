@@ -1,4 +1,6 @@
 import React, { Component , ajax} from 'react';
+import { Link } from 'react-router-dom';
+
 import DocumentMeta from 'react-document-meta';
 
 import CopyRight from '../../components/CopyRight/CopyRight'
@@ -112,10 +114,6 @@ class Index extends Component {
         })
     };
 
-    goDetail = (e) =>{
-         window.location.href = '/Detail/' + e;
-    };
-
     // 搜索博客
     searchBlog = (value) =>{
         if(!value){
@@ -124,16 +122,13 @@ class Index extends Component {
             return true;
         }
 
-
         window.location.href = '/Search/' + value;
     };
 
     render(){
         return(
             <DocumentMeta {...meta}>
-                <Layout style={{
-                    zIndex:10
-                }}>
+                <Layout>
                     <TopHeader />
 
                     <Content>
@@ -162,18 +157,14 @@ class Index extends Component {
                                             {
                                                 this.state.news.map((n) => {
                                                     return <li key={n.id}>
-                                                        <a onClick={()=>{
-                                                            this.goDetail(n.id)
-                                                        }}>{n.title}</a>
-                                                    </li>
+                                                                <Link to={'/Detail/' + n.id}>{n.title}</Link>
+                                                            </li>
                                                 })
                                             }
                                         </ul>
-                                        <div className="more" onClick={() =>{
-                                            window.location.href = '/More/news'
-                                        }}>
+                                        <Link className="more" to='/More/news'>
                                             更多<Icon type="down-circle-o" />
-                                        </div>
+                                        </Link>
                                     </div>
                                     <div className="no_data"
                                          style={{display:this.state.no_news_data}}>
@@ -191,18 +182,14 @@ class Index extends Component {
                                             {
                                                 this.state.servers.map((s) =>{
                                                     return  <li key={s.id}>
-                                                        <a onClick={()=>{
-                                                            this.goDetail(s.id)
-                                                        }}>{s.title}</a>
-                                                    </li>
+                                                                <Link to={'/Detail/' + s.id}>{s.title}</Link>
+                                                            </li>
                                                 })
                                             }
                                         </ul>
-                                        <div className="more" onClick={() =>{
-                                            window.location.href = '/More/server'
-                                        }}>
+                                        <Link className="more" to='/More/server'>
                                             更多<Icon type="down-circle-o" />
-                                        </div>
+                                        </Link>
                                     </div>
 
 
@@ -222,18 +209,14 @@ class Index extends Component {
                                             {
                                                 this.state.fronts.map((f) =>{
                                                     return <li key={f.id}>
-                                                        <a onClick={()=>{
-                                                            this.goDetail(f.id)
-                                                        }}>{f.title}</a>
-                                                    </li>
+                                                                <Link to={'/Detail/' + f.id}>{f.title}</Link>
+                                                            </li>
                                                 })
                                             }
                                         </ul>
-                                        <div className="more" onClick={() =>{
-                                            window.location.href = '/More/front'
-                                        }}>
+                                        <Link className="more" to='/More/front'>
                                             更多<Icon type="down-circle-o" />
-                                        </div>
+                                        </Link>
                                     </div>
 
 
@@ -274,10 +257,10 @@ class Index extends Component {
                                         {
                                             this.state.hots.map((n , index) => {
                                                 return <li key={n.id}>
-                                                    <a onClick={()=>{
-                                                        this.goDetail(n.id)
-                                                    }}><span>{index + 1}、</span>{n.title}</a>
-                                                </li>
+                                                            <Link to={'/Detail/' + n.id}>
+                                                                <span>{index + 1}、</span>{n.title}
+                                                            </Link>
+                                                        </li>
                                             })
                                         }
                                     </ul>

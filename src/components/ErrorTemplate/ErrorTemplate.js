@@ -56,11 +56,6 @@ class ErrorTemplate extends Component {
                     <div className="error_content">
                         <h1>{this.state.data.title}</h1>
                         <div className="error_text">{this.state.data.dec}</div>
-                        {/*<div className="error_btn">*/}
-                            {/*<a onClick={this.returnHome} href="/">*/}
-                                {/*<Button type="primary">请重新登录</Button>*/}
-                            {/*</a>*/}
-                        {/*</div>*/}
                     </div>
                 </div>
             </Content>
