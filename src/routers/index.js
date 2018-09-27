@@ -1,144 +1,86 @@
 import React, { Component } from 'react';
-import {Route,HashRouter as Router} from 'react-router-dom';
-import { Icon } from 'antd';
-import Loadable from 'react-loadable';
+import {Route,BrowserRouter as Router} from 'react-router-dom';
 
-const Loading = ({ pastDelay, timedOut, error }) => {
-    if (pastDelay) {
-        return <div style={{
-            position: 'fixed',
-            width: '100%',
-            height: '100%',
-            textAlign: 'center',
-        }}>
-                    <Icon type="loading" />
-                    <h1>由于网络原因，首页加载可能很慢，请耐心等待...</h1>
-               </div>;
-    } else if (timedOut) {
-        return <div>页面正在加载，请稍等...</div>;
-    } else if (error) {
-        return <div>页面加载失败!</div>;
-    }
-    return null;
-};
+// 错误页面
+import Error_403 from '../Pages/Error/403'
+import Error_404 from '../Pages/Error/404'
+import Error_500 from '../Pages/Error/500'
+
+import Index from '../Pages/Index/Index'
+import Detail from "../Pages/Detail/Detail";
+import More from "../Pages/More/More";
+import List from "../Pages/List/List";
+
+import Video from '../Pages/Video/Video'
+
+import Resources from "../Pages/Resource/Resources";
+import ResourceDetail from "../Pages/Resource/ResourceDetail";
+
+import GuestBook from '../Pages/GuestBook/GuestBook'
 
 const router = [
 
     {
-      path:'/',
-      component:Loadable({
-          loader: () => import('../Pages/Index/Index'),
-          loading: Loading,
-          timeout: 10000
-      })
+        path:'/',
+        component:Index
     },
 
     {
-       path:'/Detail/:id',
-       component:Loadable({
-           loader: () => import('../Pages/Detail/Detail'),
-           loading: Loading,
-           timeout: 10000
-       })
+        path:'/Detail/:id',
+        component:Detail
     },
 
     {
         path:'/More/:type',
-        component:Loadable({
-            loader: () => import('../Pages/More/More'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:More
     },
 
     {
         path:'/List/:id',
-        component:Loadable({
-            loader: () => import('../Pages/List/List'),
-            loading: Loading,
-            timeout: 10000
-        })
-    },
-
-    {
-        path:'/Search/:title',
-        component:Loadable({
-            loader: () => import('../Pages/Search/Search'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:List
     },
 
     // 错误页面
     {
         path:'/Error/403',
-        component:Loadable({
-            loader: () => import('../Pages/Error/403'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:Error_403
     },
     {
         path:'/Error/404',
-        component:Loadable({
-            loader: () => import('../Pages/Error/404'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:Error_404
     },
     {
         path:'/Error/500',
-        component:Loadable({
-            loader: () => import('../Pages/Error/500'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:Error_500
     },
 
     // 视频
     {
         path:'/Video',
-        component:Loadable({
-            loader: () => import('../Pages/Video/Video'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:Video
     },
 
     // 资源
     {
         path:'/Resource/List',
-        component:Loadable({
-            loader: () => import('../Pages/Resource/Resources'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:Resources
     },
     {
         path:'/Resource/Detail/:id',
-        component:Loadable({
-            loader: () => import('../Pages/Resource/ResourceDetail'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:ResourceDetail
     },
 
     // 留言板
     {
         path:'/GuestBook',
-        component:Loadable({
-            loader: () => import('../Pages/GuestBook/GuestBook'),
-            loading: Loading,
-            timeout: 10000
-        })
+        component:GuestBook
     }
-
 ];
 
 class Routers extends Component {
     render() {
         return (
-            <Router hashType={'hashbang'}>
+            <Router>
                 <div className='test'>
                     {
                         router.map((r) => {

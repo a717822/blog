@@ -43,7 +43,7 @@ class ResourceDetail extends Component{
                         resource:data.list[0],
 
                         title:data.list[0].name + '_资源下载_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/Resource/Detail/' + this.props.match.params.id,
+                        canonical:'https://www.yangzilong.cn/Resource/Detail/' + this.props.match.params.id,
                         keywords:data.list[0].name + ',资源下载,前端,权限管理,前端开发部落,杨子龙的博客',
                         description:'本页是提供' + data.list[0].name + '下载以及代码的使用方法'
 

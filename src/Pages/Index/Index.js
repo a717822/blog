@@ -14,7 +14,7 @@ const { Content} = Layout;
 const meta = {
     title: '前端开发部落_杨子龙的博客',
     description: '这是我的第二版博客,有兴趣的话,可以关注我的百家号:前端开发部落',
-    canonical: 'https://www.yangzilong.cn/#/',
+    canonical: 'https://www.yangzilong.cn/',
     meta: {
         name: {
             keywords: '前端,CMS,node.js,WebAPI,权限管理,React,Vue,前端开发部落'
@@ -113,7 +113,7 @@ class Index extends Component {
     };
 
     goDetail = (e) =>{
-         window.location.href = '#/Detail/' + e;
+         window.location.href = '/Detail/' + e;
     };
 
     // 搜索博客
@@ -125,7 +125,7 @@ class Index extends Component {
         }
 
 
-        window.location.href = '#/Search/' + value;
+        window.location.href = '/Search/' + value;
     };
 
     render(){
@@ -170,7 +170,7 @@ class Index extends Component {
                                             }
                                         </ul>
                                         <div className="more" onClick={() =>{
-                                            window.location.href = '#/More/news'
+                                            window.location.href = '/More/news'
                                         }}>
                                             更多<Icon type="down-circle-o" />
                                         </div>
@@ -199,7 +199,7 @@ class Index extends Component {
                                             }
                                         </ul>
                                         <div className="more" onClick={() =>{
-                                            window.location.href = '#/More/server'
+                                            window.location.href = '/More/server'
                                         }}>
                                             更多<Icon type="down-circle-o" />
                                         </div>
@@ -230,7 +230,7 @@ class Index extends Component {
                                             }
                                         </ul>
                                         <div className="more" onClick={() =>{
-                                            window.location.href = '#/More/front'
+                                            window.location.href = '/More/front'
                                         }}>
                                             更多<Icon type="down-circle-o" />
                                         </div>

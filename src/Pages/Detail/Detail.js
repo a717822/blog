@@ -55,7 +55,7 @@ class Detail extends Component {
                         blog:data.list[0],
 
                         title:data.list[0].title + '_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/Detail/' + this.props.match.params.id,
+                        canonical:'https://www.yangzilong.cn/Detail/' + this.props.match.params.id,
                         keywords:'WebAPI,前端,权限管理,前端开发部落',
                         description:data.list[0].description
                     });

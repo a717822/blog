@@ -50,7 +50,7 @@ class More extends Component {
                         name:data.name,
 
                         title:data.name + '_更多_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/More/' + this.props.match.params.type,
+                        canonical:'https://www.yangzilong.cn/More/' + this.props.match.params.type,
                         keywords:data.name + ',WebAPI,前端,权限管理,前端开发部落',
                         description:'本页是关于'+data.name+'更多列表页面'
                     });

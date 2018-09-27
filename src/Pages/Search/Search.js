@@ -47,7 +47,7 @@ class Search extends Component {
                         list:data.list,
 
                         title:this.state.key + '_搜索列表_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/Search/' + this.state.key,
+                        canonical:'https://www.yangzilong.cn/Search/' + this.state.key,
                         keywords:this.state.key + ',WebAPI,前端,权限管理,前端开发部落',
                         description:'本页是关于'+this.state.key+'搜索列表页面'
                     });
@@ -56,7 +56,7 @@ class Search extends Component {
                         list:[],
 
                         title:this.state.key + '_搜索列表_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/Search/' + this.state.key,
+                        canonical:'https://www.yangzilong.cn/Search/' + this.state.key,
                         keywords:this.state.key + ',WebAPI,前端,权限管理,前端开发部落',
                         description:'本页是关于'+this.state.key+'搜索列表页面'
                     });
@@ -87,7 +87,7 @@ class Search extends Component {
                         list:data.list,
 
                         title:value + '_搜索列表_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/Search/' + value,
+                        canonical:'https://www.yangzilong.cn/Search/' + value,
                         keywords:value + ',WebAPI,前端,权限管理,前端开发部落',
                         description:'本页是关于'+this.state.key+'搜索列表页面'
                     });
@@ -97,7 +97,7 @@ class Search extends Component {
                         list:[],
 
                         title:value + '_搜索列表_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/Search/' + value,
+                        canonical:'https://www.yangzilong.cn/Search/' + value,
                         keywords:value + ',WebAPI,前端,权限管理,前端开发部落',
                         description:'本页是关于'+value+'搜索列表页面'
                     });

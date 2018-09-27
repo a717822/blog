@@ -47,7 +47,7 @@ class GuestBook extends Component {
                         books:data.list,
 
                         title:'留言板_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/GuestBook',
+                        canonical:'https://www.yangzilong.cn/GuestBook',
                         keywords:'留言板,WebAPI,前端,权限管理,前端开发部落',
                         description:'本页是关于本博客的留言板页面'
                     })
@@ -57,7 +57,7 @@ class GuestBook extends Component {
                         books:['暂无留言'],
 
                         title:'留言板_杨子龙的博客',
-                        canonical:'https://www.yangzilong.cn/#/GuestBook',
+                        canonical:'https://www.yangzilong.cn/GuestBook',
                         keywords:'留言板,WebAPI,前端,权限管理,前端开发部落',
                         description:'本页是关于本博客的留言板页面'
                     })

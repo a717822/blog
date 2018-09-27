@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate, render } from "react-dom";
 
 // 引入ant design CSS
 import 'antd/dist/antd.min.css';
@@ -13,5 +13,10 @@ import {yangAjax} from "./assets/Server/yangAjax";
 
 React.ajax = yangAjax;
 
-ReactDOM.render( <Routers  />, document.getElementById('root'));
+const rootElement = document.getElementById("root");
+if (rootElement.hasChildNodes()) {
+    hydrate(<Routers />, rootElement);
+} else {
+    render(<Routers />, rootElement);
+}
 registerServiceWorker();
