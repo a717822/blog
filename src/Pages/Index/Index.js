@@ -6,7 +6,7 @@ import DocumentMeta from 'react-document-meta';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout , Icon , Calendar  , Card , Input , message , Divider } from 'antd';
+import {  Layout , Icon , Calendar  , Card , Input , message , Divider , Carousel } from 'antd';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 import 'moment/locale/zh-cn';
 
@@ -46,6 +46,8 @@ class Index extends Component {
             messages_style:'block',
             no_messages_data:'none',
             messages:[],
+
+            banner:[],
 
             visitor:0,
             views:0,
@@ -131,6 +133,7 @@ class Index extends Component {
                 <Layout>
                     <TopHeader />
 
+
                     <Content>
                         <div className="blog" style={{
                             marginTop:20
@@ -147,6 +150,34 @@ class Index extends Component {
                     <Content>
 
                         <div className="blog-container ant-col-md-16">
+
+                            <div style={{
+                                marginBottom:20
+                            }}>
+                                <Carousel autoplay>
+                                    {
+                                        this.state.banner.map((m) =>{
+                                            return <div key={m.id}>
+                                                        <img src={m.imgSrc}
+                                                             alt={m.title}
+                                                             width={'100%'}
+                                                             height={500}/>
+                                                        <div style={{
+                                                            padding:20,
+                                                            position:'absolute',
+                                                            zIndex:100,
+                                                            bottom:0,
+                                                            backgroundColor:'#000',
+                                                        }} className="ant-col-md-16">
+                                                            <Link to={'/Detail/' + m.id} style={{
+                                                                color:'#fff'
+                                                            }}>{m.title}</Link>
+                                                        </div>
+                                                    </div>
+                                        })
+                                    }
+                                </Carousel>
+                            </div>
 
                             {/*最新发布*/}
                             <Card className="blog" loading={this.state.CardLoading}>
