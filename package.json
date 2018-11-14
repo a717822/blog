@@ -22,7 +22,8 @@
     "postbuild": "react-snap"
   },
   "reactSnap": {
-    "cacheAjaxRequests": true
+    "cacheAjaxRequests": false,
+    "inlineCss": false
   },
   "puppeteer": {
     "cache": false
