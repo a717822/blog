@@ -4,7 +4,7 @@ import DocumentMeta from 'react-document-meta';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout  , Icon , Divider  , message , Avatar , Form , Input , Button} from 'antd';
+import {  Layout  , Icon , Divider  , message , Avatar , Form , Input , Button , Tag } from 'antd';
 
 import 'highlight.js/styles/sunburst.css'
 import highlight from 'highlight.js'
@@ -29,7 +29,9 @@ class Detail extends Component {
             keywords:'',
             description:'',
 
-            icon_theme:'outlined'
+            icon_theme:'outlined',
+
+            tags:[]
         }
     }
 
@@ -57,7 +59,8 @@ class Detail extends Component {
                         title:data.list[0].title + '_杨子龙的博客',
                         canonical:'https://www.yangzilong.cn/Detail/' + this.props.match.params.id,
                         keywords:'WebAPI,前端,权限管理,前端开发部落',
-                        description:data.list[0].description
+                        description:data.list[0].description,
+                        tags:data.list[0].tags.split(',')
                     });
 
                     if(document.getElementsByTagName('pre').length !== 0){
@@ -211,7 +214,16 @@ class Detail extends Component {
                                         <Icon type="eye" />
                                         <span>{this.state.blog.views}</span>
                                     </div>
+                                </div>
 
+                                <div className="blog_tags" style={{
+                                    marginTop:20
+                                }}>
+                                    {
+                                        this.state.tags.map((tag , index) =>{
+                                            return <Tag color="#108ee9" key={index}>{tag}</Tag>
+                                        })
+                                    }
                                 </div>
 
                                 <Divider />

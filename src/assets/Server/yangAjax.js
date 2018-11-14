@@ -3,8 +3,8 @@
  * @param config
  */
 let yangAjax = (config) =>{
-    let hostUrl = 'https://server.yangzilong.cn:3000/';
-    // let hostUrl = 'https://localhost:3001/';
+    let hostUrl = 'https://api.yangzilong.cn:58888/';
+    // let hostUrl = 'https://localhost:58888/';
 
     config = config || {};
     config.method = (config.method || "GET").toUpperCase();
