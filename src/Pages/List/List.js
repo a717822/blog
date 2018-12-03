@@ -4,7 +4,7 @@ import DocumentMeta from 'react-document-meta';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout  , Divider  , List, Icon} from 'antd';
+import {  Layout    , List, Icon} from 'antd';
 const { Content } = Layout;
 
 const IconText = ({ type, text }) => (
@@ -25,11 +25,13 @@ class blogList extends Component {
             title:'',
             canonical:'',
             keywords:'',
-            description:''
+            description:'',
+
+            loading:true
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getBlogList();
     }
 
@@ -57,7 +59,9 @@ class blogList extends Component {
                         title:data.name + '_技术分享_杨子龙的博客',
                         canonical:'https://www.yangzilong.cn/List/' + this.props.match.params.id,
                         keywords:data.name + ',WebAPI,前端,权限管理,前端开发部落',
-                        description:'本页是关于'+data.name+'技术分享列表页面'
+                        description:'本页是关于'+data.name+'技术分享列表页面',
+
+                        loading:false
                     });
                 }
             }
@@ -83,25 +87,38 @@ class blogList extends Component {
 
                     <Content>
                         <div className="more_content">
-                            <h1 className="more_title">{this.state.name}</h1>
-                            <Divider />
                             <div className="more_list">
                                 <List itemLayout="vertical"
                                       size="large"
                                       dataSource={this.state.list}
                                       pagination={{pageSize: 10,}}
-                                      renderItem={item => (
-                                          <List.Item
-                                              key={item.title}
-                                              actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}
-                                              extra={<img width={270} height={168} alt="博客图片" src={item.imgsrc} /> }
-                                          >
-                                              <List.Item.Meta
-                                                  title={<a href={item.href}>{item.title}</a>}
-                                              />
-                                              {item.description}
-                                          </List.Item>
-                                      )}>
+                                      loading={this.state.loading}
+                                      header={<h1 className="more_title">{this.state.name}</h1>}
+                                      renderItem={(item) => {
+
+                                          if(item.imgsrc !== ''){
+                                              return  <List.Item
+                                                  key={item.title}
+                                                  actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}
+                                                  extra={<img width={270} height={168} alt="博客图片" src={item.imgsrc} /> }
+                                              >
+                                                  <List.Item.Meta
+                                                      title={<a href={item.href}>{item.title}</a>}
+                                                  />
+                                                  {item.description}
+                                              </List.Item>
+                                          }else{
+                                              return  <List.Item
+                                                  key={item.title}
+                                                  actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}>
+                                                  <List.Item.Meta
+                                                      title={<a href={item.href}>{item.title}</a>}
+                                                  />
+                                                  {item.description}
+                                              </List.Item>
+                                          }
+
+                                      }}>
 
                                 </List>
                             </div>

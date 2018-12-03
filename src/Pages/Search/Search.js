@@ -24,11 +24,13 @@ class Search extends Component {
             title:'',
             canonical:'',
             keywords:'',
-            description:''
+            description:'',
+
+            loading:true
         };
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getSearchList();
     }
 
@@ -49,7 +51,9 @@ class Search extends Component {
                         title:this.state.key + '_搜索列表_杨子龙的博客',
                         canonical:'https://www.yangzilong.cn/Search/' + this.state.key,
                         keywords:this.state.key + ',WebAPI,前端,权限管理,前端开发部落',
-                        description:'本页是关于'+this.state.key+'搜索列表页面'
+                        description:'本页是关于'+this.state.key+'搜索列表页面',
+
+                        loading:false
                     });
                 }else{
                     this.setState({
@@ -58,7 +62,9 @@ class Search extends Component {
                         title:this.state.key + '_搜索列表_杨子龙的博客',
                         canonical:'https://www.yangzilong.cn/Search/' + this.state.key,
                         keywords:this.state.key + ',WebAPI,前端,权限管理,前端开发部落',
-                        description:'本页是关于'+this.state.key+'搜索列表页面'
+                        description:'本页是关于'+this.state.key+'搜索列表页面',
+
+                        loading:false
                     });
                 }
             }
@@ -89,7 +95,9 @@ class Search extends Component {
                         title:value + '_搜索列表_杨子龙的博客',
                         canonical:'https://www.yangzilong.cn/Search/' + value,
                         keywords:value + ',WebAPI,前端,权限管理,前端开发部落',
-                        description:'本页是关于'+this.state.key+'搜索列表页面'
+                        description:'本页是关于'+this.state.key+'搜索列表页面',
+
+                        loading:false
                     });
 
                 }else{
@@ -99,7 +107,9 @@ class Search extends Component {
                         title:value + '_搜索列表_杨子龙的博客',
                         canonical:'https://www.yangzilong.cn/Search/' + value,
                         keywords:value + ',WebAPI,前端,权限管理,前端开发部落',
-                        description:'本页是关于'+value+'搜索列表页面'
+                        description:'本页是关于'+value+'搜索列表页面',
+
+                        loading:false
                     });
                 }
             }
@@ -144,18 +154,31 @@ class Search extends Component {
                                       size="large"
                                       dataSource={this.state.list}
                                       pagination={{pageSize: 10,}}
-                                      renderItem={item => (
-                                          <List.Item
-                                              key={item.title}
-                                              actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}
-                                              extra={<img width={270} height={168} alt="博客图片" src={item.imgsrc} /> }
-                                          >
-                                              <List.Item.Meta
-                                                  title={<a href={item.href}>{item.title}</a>}
-                                              />
-                                              {item.description}
-                                          </List.Item>
-                                      )}>
+                                      loading={this.state.loading}
+                                      renderItem={(item) => {
+                                          if(item.imgsrc !== ''){
+                                              return  <List.Item
+                                                  key={item.title}
+                                                  actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}
+                                                  extra={<img width={270} height={168} alt="博客图片" src={item.imgsrc} /> }
+                                              >
+                                                  <List.Item.Meta
+                                                      title={<a href={item.href}>{item.title}</a>}
+                                                  />
+                                                  {item.description}
+                                              </List.Item>
+                                          }else{
+                                              return  <List.Item
+                                                  key={item.title}
+                                                  actions={[<IconText type="like-o" text={item.likes} />, <IconText type="eye" text={item.views} />]}>
+                                                  <List.Item.Meta
+                                                      title={<a href={item.href}>{item.title}</a>}
+                                                  />
+                                                  {item.description}
+                                              </List.Item>
+                                          }
+                                      }
+                                      }>
 
                                 </List>
                             </div>

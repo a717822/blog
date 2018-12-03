@@ -7,7 +7,7 @@ import TopHeader from "../../components/TopHeader/TopHeader";
 const { Content } = Layout;
 
 class Video extends Component {
-    componentWillMount(){
+    componentDidMount(){
         this.getVideoStream();
     }
 

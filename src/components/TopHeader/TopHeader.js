@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { Layout , Icon , Menu ,Drawer} from 'antd';
 const { Header} = Layout;
@@ -8,7 +8,26 @@ class TopHeader extends Component {
         super(props);
         this.state = {
             visible:false,
-            selected: localStorage.getItem('blog_selected')?localStorage.getItem('blog_selected'):'book'
+            selected: localStorage.getItem('blog_selected')?localStorage.getItem('blog_selected'):'book',
+
+            cates:[
+                {
+                    id:1,
+                    title:'PHP'
+                },
+                {
+                    id:2,
+                    title:'前端'
+                },
+                {
+                    id:3,
+                    title:'Node.js'
+                },
+                {
+                    id:4,
+                    title:'React Native'
+                },
+            ]
         };
     }
 
@@ -26,37 +45,24 @@ class TopHeader extends Component {
                           style={{ lineHeight: '64px' }}
                           onClick={this.chooseMenu}>
                         <Menu.Item key="book">
-                            <Link to="/">
-                                <Icon type="book" />首页
-                            </Link>
+                            <Link to="/">首页</Link>
                         </Menu.Item>
-                        <Menu.SubMenu title={<span><Icon type="share-alt" />技术分享</span>}>
-                            <Menu.ItemGroup title="服务器端">
-                                <Menu.Item key="share:1">
-                                    <Link to='/List/3'>Node.js</Link>
-                                </Menu.Item>
-                                <Menu.Item key="share:2">
-                                    <Link to='/List/1'>PHP</Link>
-                                </Menu.Item>
-                            </Menu.ItemGroup>
-                            <Menu.ItemGroup title="前端">
-                                <Menu.Item key="share:3">
-                                    <Link to='/List/2'>前端</Link>
-                                </Menu.Item>
-                                <Menu.Item key="share:4">
-                                    <Link to='/List/4'>React & Vue</Link>
-                                </Menu.Item>
-                            </Menu.ItemGroup>
-                        </Menu.SubMenu>
+
+                        {
+                            this.state.cates.map((cate) =>{
+
+                                return <Menu.Item key={cate.title}>
+                                            <Link to={'/List/' + cate.id}>{cate.title}</Link>
+                                       </Menu.Item>
+
+                            })
+                        }
+
                         <Menu.Item key="Resource">
-                            <Link to="/Resource/List">
-                                <Icon type="cloud-download" theme="outlined" />资源下载
-                            </Link>
+                            <Link to="/Resource/List">资源下载</Link>
                         </Menu.Item>
                         <Menu.Item key="message">
-                            <Link to="/GuestBook">
-                                <Icon type="message" theme="outlined" />留言板
-                            </Link>
+                            <Link to="/GuestBook">留言板</Link>
                         </Menu.Item>
                     </Menu>
                 </div>
@@ -86,37 +92,24 @@ class TopHeader extends Component {
                             theme="dark"
                         >
                             <Menu.Item key="book">
-                                <Link to="/">
-                                    <Icon type="book" />首页
-                                </Link>
+                                <Link to="/">首页</Link>
                             </Menu.Item>
-                            <Menu.SubMenu title={<span><Icon type="share-alt" />技术分享</span>}>
-                                <Menu.ItemGroup title="服务器端">
-                                    <Menu.Item key="share:1">
-                                        <Link to='/List/3'>Node.js</Link>
+
+                            {
+                                this.state.cates.map((cate) =>{
+
+                                    return <Menu.Item key={cate.title}>
+                                        <Link to={'/List/' + cate.id}>{cate.title}</Link>
                                     </Menu.Item>
-                                    <Menu.Item key="share:2">
-                                        <Link to='/List/1'>PHP</Link>
-                                    </Menu.Item>
-                                </Menu.ItemGroup>
-                                <Menu.ItemGroup title="前端">
-                                    <Menu.Item key="share:3">
-                                        <Link to='/List/2'>前端</Link>
-                                    </Menu.Item>
-                                    <Menu.Item key="share:4">
-                                        <Link to='/List/4'>React & Vue</Link>
-                                    </Menu.Item>
-                                </Menu.ItemGroup>
-                            </Menu.SubMenu>
+
+                                })
+                            }
+
                             <Menu.Item key="Resource">
-                                <Link to="/Resource/List">
-                                    <Icon type="cloud-download" theme="outlined" />资源下载
-                                </Link>
+                                <Link to="/Resource/List">资源下载</Link>
                             </Menu.Item>
                             <Menu.Item key="message">
-                                <Link to="/GuestBook">
-                                    <Icon type="message" theme="outlined" />留言板
-                                </Link>
+                                <Link to="/GuestBook">留言板</Link>
                             </Menu.Item>
                         </Menu>
                     </Drawer>

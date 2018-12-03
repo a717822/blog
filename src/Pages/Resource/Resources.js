@@ -25,7 +25,7 @@ class Resources extends Component{
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getResourceList();
     }
 

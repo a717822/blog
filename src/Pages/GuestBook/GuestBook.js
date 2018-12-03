@@ -18,7 +18,7 @@ class GuestBook extends Component {
         this.state = {
             books:[],
 
-            pid:0,
+            pid:'0',
             level:1,
             name:'',
 
@@ -29,7 +29,7 @@ class GuestBook extends Component {
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getBlogBooksList()
     }
 

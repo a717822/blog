@@ -4,7 +4,8 @@ import DocumentMeta from 'react-document-meta';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout  , Icon , Divider  , message , Avatar , Form , Input , Button , Tag } from 'antd';
+import {  Layout  , Icon , Divider  , message , Avatar , Form , Input ,
+    Button , Tag , Skeleton } from 'antd';
 
 import 'highlight.js/styles/sunburst.css'
 import highlight from 'highlight.js'
@@ -20,7 +21,7 @@ class Detail extends Component {
             blog:'',
             discuss:[],
 
-            pid:0,
+            pid:'0',
             level:1,
             name:'',
 
@@ -31,11 +32,13 @@ class Detail extends Component {
 
             icon_theme:'outlined',
 
-            tags:[]
+            tags:[],
+
+            loading:true
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getBlogMsg();
 
         this.getBlogDiscussList();
@@ -60,7 +63,9 @@ class Detail extends Component {
                         canonical:'https://www.yangzilong.cn/Detail/' + this.props.match.params.id,
                         keywords:'WebAPI,前端,权限管理,前端开发部落',
                         description:data.list[0].description,
-                        tags:data.list[0].tags.split(',')
+                        tags:data.list[0].tags.split(','),
+
+                        loading:false
                     });
 
                     if(document.getElementsByTagName('pre').length !== 0){
@@ -193,46 +198,61 @@ class Detail extends Component {
                             {/*详情头部*/}
                             <div className="blog_header">
                                 <div className="blog_title">
-                                    <h1>{this.state.blog.title}</h1>
-                                    <p>{this.state.blog.description}</p>
+                                    <Skeleton loading={this.state.loading} active={true}>
+                                        <h1>{this.state.blog.title}</h1>
+                                        <p>{this.state.blog.description}</p>
+                                    </Skeleton>
                                 </div>
 
                                 <div className="blog_header_label clearfix">
                                     <div className="ant-col-md-6">
-                                        <Icon type="user" />
-                                        <span>{this.state.blog.u_name}</span>
+                                        <Skeleton loading={this.state.loading} active={true}>
+                                            <Icon type="user" />
+                                            <span>{this.state.blog.u_name}</span>
+                                        </Skeleton>
                                     </div>
                                     <div className="ant-col-md-6">
-                                        <Icon type="calendar" />
-                                        <span>{this.state.blog.add_time}</span>
+                                        <Skeleton loading={this.state.loading} active={true}>
+                                            <Icon type="calendar" />
+                                            <span>{this.state.blog.add_time}</span>
+                                        </Skeleton>
                                     </div>
                                     <div className="ant-col-md-6">
-                                        <Icon type="tags" />
-                                        <span>{this.state.blog.type}</span>
+                                        <Skeleton loading={this.state.loading} active={true}>
+                                            <Icon type="tags" />
+                                            <span>{this.state.blog.type}</span>
+                                        </Skeleton>
                                     </div>
                                     <div className="ant-col-md-6">
-                                        <Icon type="eye" />
-                                        <span>{this.state.blog.views}</span>
+                                        <Skeleton loading={this.state.loading} active={true}>
+                                            <Icon type="eye" />
+                                            <span>{this.state.blog.views}</span>
+                                        </Skeleton>
                                     </div>
                                 </div>
 
                                 <div className="blog_tags" style={{
                                     marginTop:20
                                 }}>
-                                    {
-                                        this.state.tags.map((tag , index) =>{
-                                            return <Tag color="#108ee9" key={index}>{tag}</Tag>
-                                        })
-                                    }
+                                    <Skeleton loading={this.state.loading} active={true}>
+                                        {
+                                            this.state.tags.map((tag , index) =>{
+                                                return <Tag color="#108ee9" key={index}>{tag}</Tag>
+                                            })
+                                        }
+                                    </Skeleton>
                                 </div>
 
                                 <Divider />
                             </div>
 
                             {/*内容*/}
-                            <div className="blog_detail_content"
-                                 dangerouslySetInnerHTML = {{ __html:this.state.blog.content}}>
-                            </div>
+                            <Skeleton loading={this.state.loading} active={true}>
+                                <div className="blog_detail_content"
+                                     dangerouslySetInnerHTML = {{ __html:this.state.blog.content}}>
+                                </div>
+                            </Skeleton>
+
 
                             {/*点赞*/}
                             <div className="blog_like" onClick={

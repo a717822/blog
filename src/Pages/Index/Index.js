@@ -6,7 +6,8 @@ import DocumentMeta from 'react-document-meta';
 import CopyRight from '../../components/CopyRight/CopyRight'
 import TopHeader from "../../components/TopHeader/TopHeader";
 
-import {  Layout , Icon , Calendar  , Card , Input , message , Divider , Carousel } from 'antd';
+import {  Layout , Icon , Calendar  , Card , Input , message ,
+    Divider , Carousel , Skeleton } from 'antd';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 import 'moment/locale/zh-cn';
 
@@ -56,7 +57,7 @@ class Index extends Component {
         };
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getIndexMsg();
 
         localStorage.clear();
@@ -264,12 +265,16 @@ class Index extends Component {
                                 padding:30
                             }}>
                                 <div className="ant-col-md-10">
-                                    <Icon type="user" theme="outlined" />
-                                    <span>浏览次数：{this.state.visitor}</span>
+                                    <Skeleton loading={this.state.CardLoading} active={true}>
+                                        <Icon type="user" theme="outlined" />
+                                        <span>浏览次数：{this.state.visitor}</span>
+                                    </Skeleton>
                                 </div>
                                 <div className="ant-col-md-10">
-                                    <Icon type="eye" />
-                                    <span>文章查看次数：{this.state.views}</span>
+                                    <Skeleton loading={this.state.CardLoading} active={true}>
+                                        <Icon type="eye" />
+                                        <span>文章查看次数：{this.state.views}</span>
+                                    </Skeleton>
                                 </div>
                             </div>
 
@@ -284,32 +289,37 @@ class Index extends Component {
                             <div className="calendar blog">
                                 <Divider>热门博客</Divider>
                                 <div className="blog-content">
-                                    <ul>
-                                        {
-                                            this.state.hots.map((n , index) => {
-                                                return <li key={n.id}>
-                                                            <Link to={'/Detail/' + n.id}>
-                                                                <span>{index + 1}、</span>{n.title}
-                                                            </Link>
-                                                        </li>
-                                            })
-                                        }
-                                    </ul>
+                                    <Skeleton loading={this.state.CardLoading}  active={true}>
+                                        <ul>
+                                            {
+                                                this.state.hots.map((n , index) => {
+                                                    return <li key={n.id}>
+                                                        <Link to={'/Detail/' + n.id}>
+                                                            <span>{index + 1}、</span>{n.title}
+                                                        </Link>
+                                                    </li>
+                                                })
+                                            }
+                                        </ul>
+                                    </Skeleton>
                                 </div>
                             </div>
 
                             <div className="calendar blog">
                                 <Divider>留言墙</Divider>
-                                <div className="blog-content" style={{display:this.state.messages_style}}>
-                                    <ul>
-                                        {
-                                            this.state.messages.map((n) => {
-                                                return <li key={n.id}>
-                                                    <a>{n.content}</a>
-                                                </li>
-                                            })
-                                        }
-                                    </ul>
+                                <div className="blog-content"
+                                     style={{display:this.state.messages_style}}>
+                                    <Skeleton loading={this.state.CardLoading} active={true}>
+                                        <ul>
+                                            {
+                                                this.state.messages.map((n) => {
+                                                    return <li key={n.id}>
+                                                        <a>{n.content}</a>
+                                                    </li>
+                                                })
+                                            }
+                                        </ul>
+                                    </Skeleton>
                                 </div>
 
                                 <div className="no_data"
